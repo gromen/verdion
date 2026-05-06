@@ -63,11 +63,10 @@
   --color-neutral-gray: #6b6b6b;
 
   /* Typography */
-  --font-sans:
-    'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
-    Arial, sans-serif;
-  --font-display:
-    'Fraunces', 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Fraunces', 'Cormorant Garamond', 'Times New Roman', Georgia,
+    serif;
 
   /* Container */
   --container-content: 72rem; /* 1152px max readable width */
@@ -264,7 +263,9 @@
     font-weight: 600;
     font-size: 0.9375rem;
     text-decoration: none;
-    transition: border-color 0.2s ease, background-color 0.2s ease;
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease;
 
     &:hover {
       border-color: #fff;
@@ -295,6 +296,35 @@
   .verdionHero__badgeCheck {
     color: var(--wp--preset--color--accent);
     font-size: 1rem;
+  }
+}
+
+/* ==========================================================================
+   Why Us block
+   ========================================================================== */
+@layer base {
+  .verdionWhyUs {
+    .verdionWhyUs__content {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .verdionWhyUs__cardContent {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .verdionWhyUs__card {
+      display: flex;
+      gap: 1rem;
+      flex-direction: column;
+    }
+
+    .verdionWhyUs__cardIcon {
+      font-size: 1.5rem;
+      margin-inline: auto;
+    }
   }
 }
 

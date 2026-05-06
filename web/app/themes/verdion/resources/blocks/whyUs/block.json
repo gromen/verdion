@@ -1,0 +1,52 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "attributes": {
+    "cards": {
+      "default": [
+        {
+          "description": "Systemy nawadniania są wyposażone w najnowsze technologie, aby zapewnić maksymalną wydajność i precyzyjność.",
+          "icon": "",
+          "iconId": null,
+          "title": "Precyzyjne nawadnianie"
+        },
+        {
+          "description": "Systemy nawadniania są wyposażone w najnowsze technologie, aby zapewnić maksymalną wydajność i precyzyjność.",
+          "icon": "",
+          "iconId": null,
+          "title": "Nowoczesna technologia"
+        },
+        {
+          "description": "Systemy są testowane i sprawdzane przed wydaniem, aby zapewnić długą żywotność.",
+          "icon": "",
+          "iconId": null,
+          "title": "Niezawodność"
+        },
+        {
+          "description": "Systemy nawadniania są zaprojektowane w taki sposób, aby zapewnić zdrową zieleń i maksymalną wydajność.",
+          "icon": "",
+          "iconId": null,
+          "title": "Zdrowa zieleń"
+        }
+      ],
+      "type": "array"
+    }
+  },
+  "category": "verdion",
+  "description": "Sekcja why us strony głównej z tłem, nagłówkiem H1 i przyciskami CTA.",
+  "editorScript": "file:./index.js",
+  "icon": "admin-users",
+  "keywords": ["why us", "why us section"],
+  "name": "verdion/why-us",
+  "render": "file:./render.php",
+  "supports": {
+    "align": ["full"],
+    "anchor": true,
+    "html": false,
+    "multiple": false,
+    "reusable": false
+  },
+  "textdomain": "verdion",
+  "title": "Verdion Why Us",
+  "version": "1.0.0"
+}

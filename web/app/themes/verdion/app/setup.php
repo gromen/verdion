@@ -6,7 +6,6 @@
 
 namespace App;
 
-use App\Blocks\Hero;
 use App\PostTypes\Realizacja;
 use App\Taxonomies\RealizacjaKategoria;
 use Illuminate\Support\Facades\Vite;
@@ -89,12 +88,23 @@ add_filter('block_categories_all', function (array $categories): array {
 /**
  * Register custom post types, taxonomies and blocks.
  *
+ * Auto-discovers all blocks in public/blocks/ — no manual registration needed.
+ *
  * @return void
  */
 add_action('init', function () {
     Realizacja::register();
     RealizacjaKategoria::register();
-    Hero::register();
+
+    $blocksDir = get_theme_file_path('public/blocks');
+
+    if (! is_dir($blocksDir)) {
+        return;
+    }
+
+    foreach (glob("{$blocksDir}/*/block.json") as $blockJson) {
+        register_block_type(dirname($blockJson));
+    }
 });
 
 /**
