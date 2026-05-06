@@ -159,6 +159,146 @@
 }
 
 /* ==========================================================================
+   Hero block
+   ========================================================================== */
+@layer base {
+  .verdionHero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    background-color: var(--color-primary);
+    color: #fff;
+  }
+
+  .verdionHero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .verdionHero__bgImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .verdionHero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(15, 45, 30, 0.2) 0%,
+      rgba(15, 45, 30, 0.75) 60%,
+      rgba(15, 45, 30, 0.9) 100%
+    );
+    z-index: 1;
+  }
+
+  .verdionHero__inner {
+    position: relative;
+    z-index: 2;
+    padding-block: 5rem 2rem;
+
+    @media (min-width: 768px) {
+      padding-block: 8rem 3rem;
+    }
+  }
+
+  .verdionHero__headline {
+    font-size: var(--wp--preset--font-size--hero);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin: 0 0 1rem;
+    max-width: 20ch;
+  }
+
+  .verdionHero__sub {
+    font-size: clamp(1rem, 1rem + 0.5vw, 1.25rem);
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+    max-width: 36rem;
+    margin: 0 0 2rem;
+  }
+
+  .verdionHero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .verdionHero__ctaPrimary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    background-color: var(--wp--preset--color--brand);
+    color: #fff;
+    padding: 0.875rem 1.75rem;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: var(--wp--preset--color--brand-light);
+      color: #fff;
+    }
+  }
+
+  .verdionHero__ctaSecondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    color: #fff;
+    padding: 0.875rem 1.75rem;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    text-decoration: none;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+
+    &:hover {
+      border-color: #fff;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  .verdionHero__badges {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem 2.5rem;
+    padding-block: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    margin-top: 0;
+  }
+
+  .verdionHero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .verdionHero__badgeCheck {
+    color: var(--wp--preset--color--accent);
+    font-size: 1rem;
+  }
+}
+
+/* ==========================================================================
    Layout helpers
    ========================================================================== */
 @layer base {

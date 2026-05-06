@@ -6,6 +6,7 @@
 
 namespace App;
 
+use App\Blocks\Hero;
 use App\PostTypes\Realizacja;
 use App\Taxonomies\RealizacjaKategoria;
 use Illuminate\Support\Facades\Vite;
@@ -68,13 +69,32 @@ add_filter('theme_file_path', function ($path, $file) {
 add_filter('should_load_separate_core_block_assets', '__return_false');
 
 /**
- * Register custom post types and taxonomies.
+ * Register custom block categories.
+ *
+ * @return array
+ */
+add_filter('block_categories_all', function (array $categories): array {
+    return array_merge(
+        [
+            [
+                'slug'  => 'verdion',
+                'title' => 'Verdion',
+                'icon'  => null,
+            ],
+        ],
+        $categories
+    );
+});
+
+/**
+ * Register custom post types, taxonomies and blocks.
  *
  * @return void
  */
 add_action('init', function () {
     Realizacja::register();
     RealizacjaKategoria::register();
+    Hero::register();
 });
 
 /**

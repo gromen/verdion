@@ -1,0 +1,67 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "verdion/hero",
+  "version": "1.0.0",
+  "title": "Verdion Hero",
+  "category": "verdion",
+  "icon": "cover-image",
+  "description": "Sekcja hero strony głównej z tłem, nagłówkiem H1 i przyciskami CTA.",
+  "textdomain": "verdion",
+  "keywords": ["hero", "banner", "cover"],
+  "supports": {
+    "align": ["full"],
+    "anchor": true,
+    "html": false,
+    "multiple": false,
+    "reusable": false
+  },
+  "attributes": {
+    "headline": {
+      "type": "string",
+      "default": "ZIELEŃ<br>POD PEŁNĄ KONTROLĄ"
+    },
+    "subheadline": {
+      "type": "string",
+      "default": "Profesjonalne systemy nawadniania, które dbają o Twój ogród każdego dnia."
+    },
+    "ctaPrimaryLabel": {
+      "type": "string",
+      "default": "Darmowa wycena"
+    },
+    "ctaPrimaryUrl": {
+      "type": "string",
+      "default": "#kontakt"
+    },
+    "ctaSecondaryLabel": {
+      "type": "string",
+      "default": "Zobacz realizacje"
+    },
+    "ctaSecondaryUrl": {
+      "type": "string",
+      "default": "/realizacje"
+    },
+    "bgImageId": {
+      "type": "number"
+    },
+    "bgImageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "bgImageAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "badges": {
+      "type": "array",
+      "default": [
+        { "icon": "water", "label": "Oszczędność wody" },
+        { "icon": "admin-settings", "label": "Nowoczesna technologia" },
+        { "icon": "shield", "label": "Niezawodność" },
+        { "icon": "admin-site-alt3", "label": "Zdrowa zieleń" }
+      ]
+    }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}
