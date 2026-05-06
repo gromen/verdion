@@ -6,6 +6,8 @@
 
 namespace App;
 
+use App\PostTypes\Realizacja;
+use App\Taxonomies\RealizacjaKategoria;
 use Illuminate\Support\Facades\Vite;
 
 /**
@@ -66,6 +68,16 @@ add_filter('theme_file_path', function ($path, $file) {
 add_filter('should_load_separate_core_block_assets', '__return_false');
 
 /**
+ * Register custom post types and taxonomies.
+ *
+ * @return void
+ */
+add_action('init', function () {
+    Realizacja::register();
+    RealizacjaKategoria::register();
+});
+
+/**
  * Register the initial theme setup.
  *
  * @return void
@@ -84,7 +96,8 @@ add_action('after_setup_theme', function () {
      * @link https://developer.wordpress.org/reference/functions/register_nav_menus/
      */
     register_nav_menus([
-        'primary_navigation' => __('Primary Navigation', 'sage'),
+        'primary_navigation' => __('Nawigacja główna', 'verdion'),
+        'footer_navigation'  => __('Nawigacja stopki', 'verdion'),
     ]);
 
     /**
@@ -107,6 +120,10 @@ add_action('after_setup_theme', function () {
      * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
      */
     add_theme_support('post-thumbnails');
+
+    add_theme_support('align-wide');
+
+    add_theme_support('editor-styles');
 
     /**
      * Enable responsive embed support.

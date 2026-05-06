@@ -1,15 +1,15 @@
-import { defineConfig } from 'vite'
-import tailwindcss from '@tailwindcss/vite';
-import laravel from 'laravel-vite-plugin'
 import { wordpressPlugin, wordpressThemeJson } from '@roots/vite-plugin';
+import tailwindcss from '@tailwindcss/vite';
+import laravel from 'laravel-vite-plugin';
+import { defineConfig } from 'vite';
 
 // Set APP_URL if it doesn't exist for Laravel Vite plugin
-if (! process.env.APP_URL) {
-  process.env.APP_URL = 'http://example.test';
+if (!process.env.APP_URL) {
+  process.env.APP_URL = process.env.WP_HOME ?? 'http://verdion.ddev.site';
 }
 
 export default defineConfig({
-  base: '/app/themes/sage/public/build/',
+  base: '/app/themes/verdion/public/build/',
   plugins: [
     tailwindcss(),
     laravel({
@@ -28,10 +28,10 @@ export default defineConfig({
     // Generate the theme.json file in the public/build/assets directory
     // based on the Tailwind config and the theme.json file from base theme folder
     wordpressThemeJson({
-      disableTailwindColors: false,
-      disableTailwindFonts: false,
-      disableTailwindFontSizes: false,
-      disableTailwindBorderRadius: false,
+      disableTailwindColors: true,
+      disableTailwindFonts: true,
+      disableTailwindFontSizes: true,
+      disableTailwindBorderRadius: true,
     }),
   ],
   resolve: {
@@ -42,4 +42,7 @@ export default defineConfig({
       '@images': '/resources/images',
     },
   },
-})
+  server: {
+    cors: { origin: 'https://verdion.ddev.site' },
+  },
+});
