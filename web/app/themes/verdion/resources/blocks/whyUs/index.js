@@ -2,19 +2,17 @@ import {
   InspectorControls,
   MediaUpload,
   MediaUploadCheck,
+  RichText,
   useBlockProps,
 } from '@wordpress/block-editor';
 import { registerBlockType } from '@wordpress/blocks';
 import {
   Button,
-  Card,
-  CardBody,
-  CardHeader,
-  CardMedia,
   Flex,
-  __experimentalHeading as Heading,
+  FlexBlock,
   PanelBody,
-  __experimentalText as Text,
+  TextareaControl,
+  TextControl,
 } from '@wordpress/components';
 
 import metadata from './block.json';
@@ -25,143 +23,175 @@ registerBlockType(metadata.name, {
 });
 
 function Edit({ attributes, setAttributes }) {
-  const { cards } = attributes;
+  const { cards, heading } = attributes;
 
   const blockProps = useBlockProps({
     className: 'verdionWhyUs verdionWhyUs--editor alignfull',
-    style: {
-      display: 'flex',
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      gap: '2rem',
-      color: '#000',
-    },
   });
+
+  function updateCard(index, patch) {
+    setAttributes({
+      cards: cards.map((c, i) => (i === index ? { ...c, ...patch } : c)),
+    });
+  }
 
   return (
     <>
       <InspectorControls>
+        <PanelBody title="Nagłówek" initialOpen={true}>
+          <TextControl
+            label="Treść nagłówka"
+            value={heading ?? ''}
+            __next40pxDefaultSize={true}
+            __nextHasNoMarginBottom={true}
+            onChange={(val) => setAttributes({ heading: val })}
+          />
+        </PanelBody>
         <PanelBody title="Karty" initialOpen={true}>
           {cards.map((card, index) => (
-            <Card key={index}>
-              <CardMedia>
-                <MediaUploadCheck>
-                  <MediaUpload
-                    onSelect={(media) => {
-                      const updated = cards.map((c, i) =>
-                        i === index
-                          ? { ...c, iconId: media.id, icon: media.url } // ← dodaj media.id
-                          : c,
-                      );
-                      setAttributes({ cards: updated });
-                    }}
-                    allowedTypes={['image']}
-                    value={card.icon}
-                    render={({ open }) => (
-                      <Button onClick={open} variant="secondary">
-                        Wybierz obrazek
+            <div
+              key={index}
+              style={{
+                border: '1px solid #e0e0e0',
+                borderRadius: '4px',
+                padding: '12px',
+                marginBottom: '12px',
+              }}
+            >
+              <p style={{ fontWeight: 600, marginBottom: '8px' }}>
+                Karta {index + 1}
+              </p>
+
+              {/* Image upload + preview */}
+              <MediaUploadCheck>
+                <MediaUpload
+                  onSelect={(media) =>
+                    updateCard(index, {
+                      iconId: media.id,
+                      icon: media.url,
+                    })
+                  }
+                  allowedTypes={['image']}
+                  value={card.iconId}
+                  render={({ open }) => (
+                    <div style={{ marginBottom: '8px' }}>
+                      {card.icon && (
+                        <img
+                          src={card.icon}
+                          alt={card.title}
+                          style={{
+                            display: 'block',
+                            width: '100%',
+                            maxHeight: '80px',
+                            objectFit: 'contain',
+                            marginBottom: '4px',
+                            borderRadius: '4px',
+                          }}
+                        />
+                      )}
+                      <Button
+                        onClick={open}
+                        variant="secondary"
+                        style={{ width: '100%' }}
+                      >
+                        {card.icon ? 'Zmień obrazek' : 'Wybierz obrazek'}
                       </Button>
-                    )}
-                  />
-                </MediaUploadCheck>
-              </CardMedia>
-              <CardHeader>
-                <Heading
-                  level={4}
-                  value={card.title}
-                  onChange={(val) => {
-                    const updated = cards.map((c, i) =>
-                      i === index ? { ...c, title: val } : c,
-                    );
-                    setAttributes({ cards: updated });
-                  }}
-                >
-                  {card.title}
-                </Heading>
-              </CardHeader>
-              <CardBody>
-                <Text
-                  value={card.description}
-                  onChange={(val) => {
-                    const updated = cards.map((c, i) =>
-                      i === index ? { ...c, description: val } : c,
-                    );
-                    setAttributes({ cards: updated });
-                  }}
+                    </div>
+                  )}
                 />
-              </CardBody>
-            </Card>
-            // <Flex key={index} align="flex-end" style={{ marginBottom: '16px' }}>
-            //   <FlexBlock
-            //     style={{ border: '1px solid rgba(0,0,0,0.1)', padding: '8px' }}
-            //   >
-            //     <TextControl
-            //       label={`Karta ${index + 1}`}
-            //       value={card.title}
-            //       onChange={(val) => {
-            //         const updated = cards.map((c, i) =>
-            //           i === index ? { ...c, title: val } : c,
-            //         );
-            //         setAttributes({ cards: updated });
-            //       }}
-            //     />
-            //     <TextControl
-            //       label={`Opis ${index + 1}`}
-            //       value={card.description}
-            //       onChange={(val) => {
-            //         const updated = cards.map((c, i) =>
-            //           i === index ? { ...c, description: val } : c,
-            //         );
-            //         setAttributes({ cards: updated });
-            //       }}
-            //     />
-            //   </FlexBlock>
-            //   <FlexItem>
-            //     <Button
-            //       isDestructive
-            //       size="small"
-            //       onClick={() => {
-            //         setAttributes({
-            //           cards: cards.filter((_, i) => i !== index),
-            //         });
-            //       }}
-            //       style={{ marginBottom: '8px' }}
-            //     >
-            //       ✕
-            //     </Button>
-            //   </FlexItem>
-            // </Flex>
+              </MediaUploadCheck>
+
+              {/* Title */}
+              <TextControl
+                label="Tytuł"
+                value={card.title ?? ''}
+                __next40pxDefaultSize={true}
+                __nextHasNoMarginBottom={true}
+                onChange={(val) => updateCard(index, { title: val })}
+              />
+
+              {/* Description */}
+              <TextareaControl
+                label="Opis"
+                value={card.description ?? ''}
+                __next40pxDefaultSize={true}
+                __nextHasNoMarginBottom={true}
+                onChange={(val) => updateCard(index, { description: val })}
+                rows={3}
+              />
+
+              {/* Remove */}
+              <Flex justify="flex-end">
+                <FlexBlock>
+                  <Button
+                    isDestructive
+                    size="small"
+                    onClick={() =>
+                      setAttributes({
+                        cards: cards.filter((_, i) => i !== index),
+                      })
+                    }
+                  >
+                    Usuń kartę
+                  </Button>
+                </FlexBlock>
+              </Flex>
+            </div>
           ))}
+
+          <Button
+            variant="secondary"
+            style={{ width: '100%', marginTop: '4px' }}
+            onClick={() =>
+              setAttributes({
+                cards: [
+                  ...cards,
+                  {
+                    iconId: null,
+                    icon: '',
+                    title: 'Nowa cecha',
+                    description: '',
+                  },
+                ],
+              })
+            }
+          >
+            + Dodaj kartę
+          </Button>
         </PanelBody>
       </InspectorControls>
 
+      {/* Canvas preview */}
       <div {...blockProps}>
-        {cards && cards.length > 0 && (
-          <Flex align="flex-end" style={{ marginBottom: '8px' }}>
-            {cards.map((card, i) => (
-              <span
-                key={i}
-                style={{
-                  color: '#000',
-                  fontSize: '0.875rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.375rem',
-                }}
-              >
-                <div class="verdionWhyUs__cardContent">
-                  <span class="verdionWhyUs__cardIcon">
-                    <img src={card.icon} alt={card.title} />
-                  </span>
-                  <span class="verdionWhyUs__cardTitle">{card.title}</span>
-                  <span class="verdionWhyUs__cardDescription">
-                    {card.description}
-                  </span>
-                </div>
+        <RichText
+          tagName="h2"
+          className="verdionWhyUs__heading"
+          value={heading}
+          onChange={(val) => setAttributes({ heading: val })}
+          placeholder="Nagłówek sekcji..."
+        />
+        <div className="verdionWhyUs__content">
+          {cards.map((card, i) => (
+            <div key={i} className="verdionWhyUs__card">
+              {card.icon && (
+                <img
+                  src={card.icon}
+                  alt={card.title ?? ''}
+                  className="verdionWhyUs__cardIcon"
+                  style={{
+                    width: '48px',
+                    height: '48px',
+                    objectFit: 'contain',
+                  }}
+                />
+              )}
+              <strong className="verdionWhyUs__cardTitle">{card.title}</strong>
+              <span className="verdionWhyUs__cardDescription">
+                {card.description}
               </span>
-            ))}
-          </Flex>
-        )}
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );

@@ -1,6 +1,7 @@
 @php
   $bgImageUrl       = $attributes['bgImageUrl'] ?? null;
   $cards            = $attributes['cards'] ?? [];
+  $heading          = $attributes['heading'] ?? '';
   $anchor           = $attributes['anchor'] ?? '';
   $anchorAttr       = $anchor ? " id=\"{$anchor}\"" : '';
 @endphp
@@ -11,6 +12,10 @@
   {!! $anchorAttr !!}
 >
 
+
+  @if (!empty($heading))
+    <h2 class="verdionWhyUs__heading">{!! $heading !!}</h2>
+  @endif
 
   @if (!empty($cards))
   <div class="verdionWhyUs__inner">
