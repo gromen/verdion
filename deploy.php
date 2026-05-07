@@ -19,7 +19,7 @@ host('staging')
     ->setPort(5739)
     ->setRemoteUser('verdion')
     ->setIdentityFile('~/.ssh/verdion_deploy')
-    ->setDeployPath('/home/verdion/staging.verdion.pl')
+    ->setDeployPath('/home/verdion/public_html/staging')
     ->set('branch', 'develop')
     ->set('site_url', 'https://staging.verdion.pl');
 
