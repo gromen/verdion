@@ -27,11 +27,15 @@ jobs:
           cache: 'npm'
           cache-dependency-path: web/app/themes/verdion/package-lock.json
 
+      - name: Install Composer dependencies
+        run: composer install --no-dev --optimize-autoloader --no-interaction
+
       - name: Build theme assets
         working-directory: web/app/themes/verdion
         run: |
           npm ci
           npm run build
+          npm run build:blocks
 
       - name: Setup SSH
         run: |
