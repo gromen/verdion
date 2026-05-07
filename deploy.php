@@ -42,12 +42,17 @@ task('theme:upload_assets', function () {
     run('chmod -R u+rwX,go+rX {{release_path}}/web/app/themes/verdion/public');
 });
 
+task('php:reload', function () {
+    run('pkill -9 -u $(whoami) -f "^lsphp$" 2>/dev/null || true');
+});
+
 task('deploy', [
     'deploy:prepare',
     'deploy:vendors',
     'theme:vendors',
     'theme:upload_assets',
     'deploy:publish',
+    'php:reload',
 ]);
 
 after('deploy:failed', 'deploy:unlock');
