@@ -153,6 +153,59 @@ vendor/bin/dep rollback staging
 vendor/bin/dep run staging -- "wp plugin list --path=/home/verdion/staging.verdion.pl/current/web/wp"
 ```
 
+## Maintenance Landing (verdion.pl pre-launch)
+
+Before the WordPress production site goes live, `verdion.pl` serves a static "coming soon" page from a separate directory — independent of PHP, WordPress, or the database.
+
+### Directory on server
+
+```
+/home/verdion/verdion.pl-maintenance/
+├── index.html     ← self-contained HTML (inline CSS + SVG)
+└── .htaccess      ← HTTP 503 + Retry-After + noindex headers
+```
+
+### One-time server setup
+
+```bash
+ssh -p 5739 verdion@verdion.smarthost.pl "mkdir -p ~/verdion.pl-maintenance"
+```
+
+Then upload:
+
+```bash
+vendor/bin/dep maintenance:upload production-maintenance
+```
+
+Then in **cPanel → Domains → verdion.pl** set Document Root to:
+
+```
+/home/verdion/verdion.pl-maintenance
+```
+
+### Updating the maintenance page
+
+```bash
+vendor/bin/dep maintenance:upload production-maintenance
+```
+
+### Switching to the live WordPress site
+
+1. Deploy production WordPress: `vendor/bin/dep deploy production`
+2. In cPanel → Domains → `verdion.pl`, change Document Root to:
+
+```
+/home/verdion/verdion.pl/current/web
+```
+
+3. Verify: `curl -I https://verdion.pl` → expect `HTTP/1.1 200 OK`
+
+### Switching back to maintenance
+
+Change Document Root back to `/home/verdion/verdion.pl-maintenance` in cPanel.
+
+See also: [`maintenance/README.md`](maintenance/README.md)
+
 ## Troubleshooting
 
 **Permission denied (publickey)** — Check that `~/.ssh/verdion_deploy.pub` is authorized in cPanel → SSH Access → Manage Keys.

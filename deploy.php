@@ -56,3 +56,24 @@ task('deploy', [
 ]);
 
 after('deploy:failed', 'deploy:unlock');
+
+// ─── Maintenance landing (verdion.pl pre-launch) ───────────────────────────
+
+host('production-maintenance')
+    ->setHostname('verdion.smarthost.pl')
+    ->setPort(5739)
+    ->setRemoteUser('verdion')
+    ->setIdentityFile('~/.ssh/verdion_deploy')
+    ->set('deploy_path', '/home/verdion/verdion.pl-maintenance');
+
+task('maintenance:upload', function () {
+    $localPath = __DIR__ . '/maintenance/';
+    $remotePath = '/home/verdion/verdion.pl-maintenance/';
+
+    upload($localPath, $remotePath, [
+        'options' => ['--delete', '--exclude=.DS_Store'],
+    ]);
+
+    run("chmod 644 {$remotePath}.htaccess {$remotePath}index.html");
+    run("find {$remotePath} -type d -exec chmod 755 {} \\;");
+})->desc('Upload static maintenance landing to production-maintenance host');
