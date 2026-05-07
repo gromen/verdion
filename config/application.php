@@ -156,6 +156,12 @@ Config::define('WP_POST_REVISIONS', env('WP_POST_REVISIONS') ?? true);
 // Disable script concatenation
 Config::define('CONCATENATE_SCRIPTS', false);
 
+// Ensure files written by WordPress are world-readable so that the web server
+// (running as a different user on shared hosting) can serve uploaded media.
+umask(0022);
+Config::define('FS_CHMOD_FILE', 0644);
+Config::define('FS_CHMOD_DIR', 0755);
+
 /**
  * Debugging Settings
  */
