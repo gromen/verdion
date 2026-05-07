@@ -39,6 +39,7 @@ task('theme:vendors', function () {
 task('theme:upload_assets', function () {
     $localThemePath = __DIR__ . '/web/app/themes/verdion';
     upload($localThemePath . '/public/', '{{release_path}}/web/app/themes/verdion/public/');
+    run('chmod -R u+rwX,go+rX {{release_path}}/web/app/themes/verdion/public');
 });
 
 task('deploy', [

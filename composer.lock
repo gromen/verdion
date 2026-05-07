@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4ac6c7227dff907d39d2d33a25d12834",
+    "content-hash": "efcd15e77c9f8bf7f28806a8e14595e0",
     "packages": [
         {
             "name": "brick/math",
@@ -6972,6 +6972,37 @@
                 }
             ],
             "time": "2026-04-26T05:33:54+00:00"
+        },
+        {
+            "name": "wp-plugin/safe-svg",
+            "version": "2.4.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/safe-svg/",
+                "reference": "tags/2.4.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/safe-svg.2.4.0.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0|~2.0"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://wp-packages.org/downloads",
+            "authors": [
+                {
+                    "name": "10up"
+                }
+            ],
+            "description": "Enable SVG uploads and sanitize them to stop XML/SVG vulnerabilities in your WordPress website.",
+            "homepage": "https://wordpress.org/plugins/safe-svg/",
+            "support": {
+                "changelog": "https://wordpress.org/plugins/safe-svg/#developers",
+                "issues": "https://wordpress.org/support/plugin/safe-svg",
+                "source": "https://plugins.svn.wordpress.org/safe-svg"
+            },
+            "time": "2026-04-14T13:36:11+00:00"
         },
         {
             "name": "wp-theme/twentytwentyfive",
