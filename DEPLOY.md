@@ -9,6 +9,8 @@ Stack: Bedrock + Sage · Deployer 8 · GitHub Actions · Smarthost shared hostin
 | Staging | staging.verdion.pl | `develop` | Auto on push |
 | Production | verdion.pl | `main` | Manual (`workflow_dispatch`) |
 
+Composer and CI expect **PHP 8.4+** (Symfony 8 dev toolchain). Locally, set `.ddev/config.yaml` to `php_version: "8.4"` (the `.ddev/` directory is not in this repo) and run `ddev restart`.
+
 ## Server Structure (Deployer atomic releases)
 
 ```
