@@ -206,6 +206,41 @@ Change Document Root back to `/home/verdion/verdion.pl-maintenance` in cPanel.
 
 See also: [`maintenance/README.md`](maintenance/README.md)
 
+## Staging Access Protection
+
+The staging environment is protected by HTTP Basic Auth. The credentials are stored in the team password manager.
+
+- **Login:** `verdion`
+- **Password:** stored in team password manager (search: *verdion staging*)
+- **`.htpasswd` location:** `/home/verdion/public_html/staging/shared/.htpasswd` (outside Deployer release rotation — survives atomic deploys)
+- **Rules:** `web/.htaccess` — the `BEGIN Staging Protection` block activates only when `HTTP_HOST` starts with `staging.`; it is a no-op on production
+
+### Add or change a user
+
+```bash
+ssh verdion-staging
+# Add a new user (-b = password on command line, use interactively without -b for prompt)
+htpasswd ~/public_html/staging/shared/.htpasswd <username>
+
+# Or regenerate with openssl if htpasswd is not available:
+HASH=$(openssl passwd -apr1 'newpassword')
+echo "verdion:$HASH" > ~/public_html/staging/shared/.htpasswd
+chmod 644 ~/public_html/staging/shared/.htpasswd
+```
+
+### Verify protection
+
+```bash
+# Should return 401
+curl -I https://staging.verdion.pl
+
+# Should return 200 + X-Robots-Tag: noindex, nofollow, noarchive
+curl -I -u verdion:PASSWORD https://staging.verdion.pl
+
+# Production must NOT return 401
+curl -I https://verdion.pl
+```
+
 ## Troubleshooting
 
 **Permission denied (publickey)** — Check that `~/.ssh/verdion_deploy.pub` is authorized in cPanel → SSH Access → Manage Keys.
