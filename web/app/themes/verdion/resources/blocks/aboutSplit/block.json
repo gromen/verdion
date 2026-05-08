@@ -1,0 +1,58 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "verdion/about-split",
+  "version": "1.0.0",
+  "title": "Verdion About Split",
+  "category": "verdion",
+  "icon": "columns",
+  "description": "Two-column about section: copy and CTA on the left, featured image on the right.",
+  "textdomain": "verdion",
+  "keywords": ["about", "o nas", "split", "image"],
+  "supports": {
+    "align": ["full"],
+    "anchor": true,
+    "html": false,
+    "multiple": true,
+    "reusable": true
+  },
+  "attributes": {
+    "subtitle": {
+      "type": "string",
+      "default": "O NAS"
+    },
+    "title": {
+      "type": "string",
+      "default": "TECHNOLOGIA DLA TWOJEGO OGRODU"
+    },
+    "body": {
+      "type": "string",
+      "default": "VERDION to połączenie pasji do zieleni z nowoczesną technologią. Projektujemy i instalujemy systemy nawadniania, które zapewniają piękno i wygodę na lata."
+    },
+    "imageId": {
+      "type": "number"
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "imageAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "ctaLabel": {
+      "type": "string",
+      "default": "DOWIEDZ SIĘ WIĘCEJ"
+    },
+    "ctaUrl": {
+      "type": "string",
+      "default": "#"
+    },
+    "ctaOpensNewTab": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}

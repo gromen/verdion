@@ -335,6 +335,149 @@
 }
 
 /* ==========================================================================
+   About Split block
+   ========================================================================== */
+@layer base {
+  .verdionAboutSplit {
+    background-color: #051109;
+    color: #fff;
+    padding-block: 3rem;
+
+    @media (min-width: 768px) {
+      padding-block: 4rem 4.5rem;
+    }
+  }
+
+  .verdionAboutSplit__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+
+    @media (min-width: 768px) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 2.5rem 3rem;
+    }
+  }
+
+  .verdionAboutSplit__copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .verdionAboutSplit__subtitle {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--wp--preset--color--accent);
+    line-height: 1.4;
+  }
+
+  .verdionAboutSplit__title {
+    margin: 0;
+    font-size: clamp(1.5rem, 1.25rem + 2vw, 2.25rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1.15;
+    color: #fff;
+  }
+
+  .verdionAboutSplit__body {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.92);
+    max-width: 36rem;
+
+    p {
+      margin: 0 0 0.75em;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .verdionAboutSplit__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-top: 0.5rem;
+    border: 2px solid rgba(255, 255, 255, 0.65);
+    color: #fff;
+    padding: 0.875rem 1.75rem;
+    border-radius: 0.375rem;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease;
+
+    &:hover {
+      border-color: #fff;
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+  }
+
+  .verdionAboutSplit__media {
+    min-width: 0;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+  }
+
+  .verdionAboutSplit__mediaImg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .verdionAboutSplit--editor {
+    .verdionAboutSplit__subtitle--placeholder {
+      opacity: 0.45;
+      font-style: italic;
+      text-transform: none;
+      letter-spacing: normal;
+    }
+
+    .verdionAboutSplit__cta--fake {
+      pointer-events: none;
+    }
+
+    .verdionAboutSplit__mediaPlaceholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 12rem;
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      border: 2px dashed rgba(255, 255, 255, 0.25);
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 0.875rem;
+      text-align: center;
+    }
+
+    .verdionAboutSplit__media {
+      aspect-ratio: 16 / 10;
+    }
+  }
+}
+
+/* ==========================================================================
    Layout helpers
    ========================================================================== */
 @layer base {
