@@ -51,7 +51,8 @@
     "deployer/deployer": "^8.0",
     "deployer/recipes": "^6.2",
     "laravel/pint": "^1.27",
-    "pestphp/pest": "^4.0"
+    "pestphp/pest": "^4.0",
+    "symfony/yaml": "^7.4"
   },
   "config": {
     "optimize-autoloader": true,
