@@ -19,6 +19,7 @@ web/wp
 .env
 .env.*
 !.env.example
+.cursor/
 
 # Composer
 /vendor
