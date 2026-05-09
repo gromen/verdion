@@ -1,11 +1,16 @@
-<header class="banner">
-  <!-- <a class="brand" href="{{ home_url('/') }}">
-    {!! $siteName !!}
-  </a> -->
+@php
+  // Read header block attrs from front page if block is placed there.
+  $headerAttrs = [];
+  $frontPageId = (int) get_option('page_on_front');
+  if ($frontPageId > 0) {
+    $blocks = parse_blocks(get_post_field('post_content', $frontPageId));
+    foreach ($blocks as $block) {
+      if (($block['blockName'] ?? '') === 'verdion/header') {
+        $headerAttrs = $block['attrs'] ?? [];
+        break;
+      }
+    }
+  }
+@endphp
 
-  @if (has_nav_menu('primary_navigation'))
-    <nav class="nav-primary" aria-label="{{ wp_get_nav_menu_name('primary_navigation') }}">
-      {!! wp_nav_menu(['theme_location' => 'primary_navigation', 'menu_class' => 'nav', 'echo' => false]) !!}
-    </nav>
-  @endif
-</header>
+@include('partials.header-nav', ['attributes' => $headerAttrs, 'content' => ''])

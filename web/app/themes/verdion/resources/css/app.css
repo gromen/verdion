@@ -1648,3 +1648,285 @@
     }
   }
 }
+
+/* ==========================================================================
+   Verdion Header
+   ========================================================================== */
+.verdionHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(15, 45, 30, 0.97);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  transition: background 0.35s ease, box-shadow 0.35s ease;
+  width: 100%;
+
+  &.verdionHeader--transparent {
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+
+  &.verdionHeader--transparent.verdionHeader--scrolled,
+  &.verdionHeader--transparent.verdionHeader--open {
+    background: rgba(15, 45, 30, 0.97);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(8px);
+  }
+
+  & .verdionHeader__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4rem;
+    gap: 1rem;
+  }
+
+  /* Logo */
+  & .verdionHeader__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  & .verdionHeader__logoMark {
+    display: block;
+    width: 32px;
+    height: 32px;
+  }
+
+  & .verdionHeader__logoText {
+    font-family: var(--font-fraunces, 'Fraunces', serif);
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #ffffff;
+    line-height: 1;
+  }
+
+  /* Desktop nav — hidden on mobile */
+  & .verdionHeader__nav {
+    display: none;
+    flex: 1;
+    justify-content: center;
+
+    @media (min-width: 1024px) {
+      display: flex;
+    }
+  }
+
+  & .verdionHeader__menu {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    & li {
+      & a {
+        display: block;
+        padding: 0.5rem 0.875rem;
+        font-size: 0.9375rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.88);
+        text-decoration: none;
+        border-radius: 4px;
+        transition: color 0.2s ease, background 0.2s ease;
+        letter-spacing: 0.01em;
+
+        &:hover,
+        &:focus-visible {
+          color: #ffffff;
+          background: rgba(255, 255, 255, 0.08);
+          outline: 2px solid var(--color-accent, #8bc34a);
+          outline-offset: 2px;
+        }
+      }
+
+      &.current-menu-item > a,
+      &.current_page_item > a {
+        color: var(--color-accent, #8bc34a);
+      }
+    }
+  }
+
+  /* CTA button */
+  & .verdionHeader__cta {
+    display: none;
+    padding: 0.5rem 1.25rem;
+    background: var(--color-brand, #2e7d32);
+    color: #ffffff;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background 0.2s ease, transform 0.15s ease;
+
+    @media (min-width: 1024px) {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    &:hover,
+    &:focus-visible {
+      background: var(--color-accent, #8bc34a);
+      color: var(--color-primary, #0f2d1e);
+      outline: 2px solid var(--color-accent, #8bc34a);
+      outline-offset: 2px;
+    }
+  }
+
+  /* Hamburger toggle */
+  & .verdionHeader__toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    flex-shrink: 0;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+
+    @media (min-width: 1024px) {
+      display: none;
+    }
+
+    &:hover,
+    &:focus-visible {
+      background: rgba(255, 255, 255, 0.1);
+      outline: 2px solid var(--color-accent, #8bc34a);
+      outline-offset: 2px;
+    }
+  }
+
+  & .verdionHeader__bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 2px;
+    transform-origin: center;
+    transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+  }
+
+  /* Hamburger → X animation */
+  &.verdionHeader--open {
+    & .verdionHeader__bar:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    & .verdionHeader__bar:nth-child(2) {
+      opacity: 0;
+      width: 0;
+    }
+    & .verdionHeader__bar:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+  }
+
+  /* Mobile drawer */
+  & .verdionHeader__drawer {
+    max-height: 0;
+    overflow: hidden;
+    background: rgba(15, 45, 30, 0.98);
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
+
+    @media (min-width: 1024px) {
+      display: none;
+    }
+  }
+
+  &.verdionHeader--open .verdionHeader__drawer {
+    max-height: 80vh;
+    padding-bottom: 1.5rem;
+  }
+
+  & .verdionHeader__drawerNav {
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem 0;
+  }
+
+  & .verdionHeader__drawerMenu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    & li {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+
+      & a {
+        display: block;
+        padding: 0.875rem 1.25rem;
+        font-size: 1rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.88);
+        text-decoration: none;
+        transition: color 0.2s ease, padding-left 0.2s ease;
+
+        &:hover,
+        &:focus-visible {
+          color: var(--color-accent, #8bc34a);
+          padding-left: 1.75rem;
+          outline: none;
+        }
+      }
+
+      &.current-menu-item > a,
+      &.current_page_item > a {
+        color: var(--color-accent, #8bc34a);
+      }
+    }
+  }
+
+  & .verdionHeader__drawerCta {
+    display: inline-flex;
+    align-items: center;
+    margin: 1rem 1.25rem 0;
+    padding: 0.75rem 1.5rem;
+    background: var(--color-brand, #2e7d32);
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 6px;
+    align-self: flex-start;
+    transition: background 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      background: var(--color-accent, #8bc34a);
+      color: var(--color-primary, #0f2d1e);
+      outline: 2px solid var(--color-accent, #8bc34a);
+      outline-offset: 2px;
+    }
+  }
+}
+
+/* Offset for fixed header */
+.wp-site-blocks > *:first-child:not(.verdionHeader),
+.entry-content > *:first-child:not(.verdionHeader) {
+  scroll-margin-top: 4rem;
+}
+
+/* Admin bar offset — mobile: 46px, desktop: 32px */
+.admin-bar .verdionHeader {
+  top: 46px;
+
+  @media (min-width: 783px) {
+    top: 32px;
+  }
+}

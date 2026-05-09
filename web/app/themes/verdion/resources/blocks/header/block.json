@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "verdion/header",
+  "version": "1.0.0",
+  "title": "Verdion Header",
+  "category": "verdion",
+  "icon": "menu",
+  "description": "Główna nawigacja strony – sticky, transparentna/solidna przy scrollu, menu z Wygląd → Menu.",
+  "textdomain": "verdion",
+  "keywords": ["header", "nawigacja", "menu"],
+  "supports": {
+    "align": ["full"],
+    "anchor": true,
+    "html": false,
+    "multiple": false,
+    "reusable": false
+  },
+  "attributes": {
+    "menuId": { "type": "integer", "default": 0 },
+    "ctaLabel": { "type": "string", "default": "Kontakt" },
+    "ctaUrl": { "type": "string", "default": "" }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}
