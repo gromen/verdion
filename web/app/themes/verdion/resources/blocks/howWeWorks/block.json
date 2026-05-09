@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "verdion/how-we-works",
+  "version": "1.0.0",
+  "title": "Verdion How We Work",
+  "category": "verdion",
+  "icon": "list-view",
+  "description": "Sekcja 'Jak pracujemy' – lista kroków z numerami i opisami.",
+  "textdomain": "verdion",
+  "keywords": ["how we work", "kroki", "proces"],
+  "supports": {
+    "align": ["full"],
+    "anchor": true,
+    "html": false,
+    "multiple": false,
+    "reusable": false
+  },
+  "attributes": {
+    "subtitle": { "type": "string", "default": "JAK DZIAŁAMY" },
+    "title": { "type": "string", "default": "Jak pracujemy?" },
+    "backgroundColor": { "type": "string", "default": "" },
+    "steps": {
+      "type": "array",
+      "default": [
+        { "number": "01", "title": "Analiza potrzeb", "description": "Rozmawiamy o Twoich oczekiwaniach i oceniamy teren, by dobrać optymalne rozwiązanie." },
+        { "number": "02", "title": "Projekt i wycena", "description": "Przygotowujemy indywidualny projekt wraz z przejrzystą wyceną bez ukrytych kosztów." },
+        { "number": "03", "title": "Realizacja", "description": "Nasz doświadczony zespół wykonuje instalację sprawnie i z dbałością o każdy detal." },
+        { "number": "04", "title": "Odbiór i szkolenie", "description": "Przekazujemy gotową instalację i instruujemy, jak z niej korzystać na co dzień." }
+      ]
+    }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}
