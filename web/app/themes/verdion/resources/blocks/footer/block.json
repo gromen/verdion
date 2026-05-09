@@ -1,0 +1,44 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "verdion/footer",
+  "version": "1.0.0",
+  "title": "Verdion Footer",
+  "category": "verdion",
+  "icon": "layout",
+  "description": "Stopka strony – logo, szybkie linki z menu WP, oferta, kontakt i social media.",
+  "textdomain": "verdion",
+  "keywords": ["footer", "stopka", "kontakt"],
+  "supports": {
+    "align": ["full"],
+    "anchor": true,
+    "html": false,
+    "multiple": false,
+    "reusable": false
+  },
+  "attributes": {
+    "tagline": { "type": "string", "default": "Automatyczne systemy nawadniania i trawniki." },
+    "quickLinksMenuId": { "type": "integer", "default": 0 },
+    "ofertaLinks": {
+      "type": "array",
+      "default": [
+        { "label": "Systemy nawadniania", "url": "" },
+        { "label": "Modernizacje systemów", "url": "" },
+        { "label": "Serwis i konserwacja", "url": "" }
+      ]
+    },
+    "phone": { "type": "string", "default": "+48 123 456 789" },
+    "email": { "type": "string", "default": "biuro@verdion.pl" },
+    "city": { "type": "string", "default": "Twoje miasto" },
+    "facebookUrl": { "type": "string", "default": "" },
+    "instagramUrl": { "type": "string", "default": "" },
+    "socialThirdUrl": { "type": "string", "default": "" },
+    "copyrightText": { "type": "string", "default": "© 2026 VERDION. Wszelkie prawa zastrzeżone." },
+    "privacyLabel": { "type": "string", "default": "Polityka prywatności" },
+    "privacyUrl": { "type": "string", "default": "" },
+    "cookiesLabel": { "type": "string", "default": "Cookies" },
+    "cookiesUrl": { "type": "string", "default": "" }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}

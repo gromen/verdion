@@ -1365,3 +1365,286 @@
     }
   }
 }
+
+/* ==========================================================================
+   Verdion Footer Block
+   ========================================================================== */
+
+.verdionFooter {
+  background-color: var(--color-primary, #0f2d1e);
+  color: #e0e0e0;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+
+  /* ── Top section ─────────────────────────────────────────────────────── */
+  & .verdionFooter__top {
+    padding: 3rem 1.25rem 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2rem;
+      padding: 4rem 2.5rem 3rem;
+    }
+
+    @media (min-width: 1024px) {
+      padding: 4.5rem 4rem 3.5rem;
+    }
+  }
+
+  /* ── Brand column ────────────────────────────────────────────────────── */
+  & .verdionFooter__brand {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  & .verdionFooter__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    text-decoration: none;
+
+    & svg,
+    & img {
+      width: 2.25rem;
+      height: 2.25rem;
+      flex-shrink: 0;
+    }
+  }
+
+  & .verdionFooter__logoText {
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #ffffff;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  & .verdionFooter__tagline {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.65;
+    max-width: 22ch;
+    margin: 0;
+  }
+
+  /* ── Generic nav column ──────────────────────────────────────────────── */
+  & .verdionFooter__col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+
+  & .verdionFooter__colTitle {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent, #8bc34a);
+    margin: 0 0 0.25rem;
+    line-height: 1;
+  }
+
+  /* ── Navigation list ─────────────────────────────────────────────────── */
+  & .verdionFooter__nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    & li {
+      margin: 0;
+      padding: 0;
+    }
+
+    & a {
+      color: rgba(255, 255, 255, 0.75);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      transition: color 0.2s ease, padding-left 0.2s ease;
+      display: inline-block;
+
+      &:hover,
+      &:focus-visible {
+        color: #ffffff;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        padding-left: 0.25rem;
+        outline: 2px solid var(--color-accent, #8bc34a);
+        outline-offset: 2px;
+        border-radius: 2px;
+      }
+    }
+  }
+
+  /* ── Contact list ────────────────────────────────────────────────────── */
+  & .verdionFooter__contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  & .verdionFooter__contactItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+
+    & a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover,
+      &:focus-visible {
+        color: #ffffff;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        outline: 2px solid var(--color-accent, #8bc34a);
+        outline-offset: 2px;
+        border-radius: 2px;
+      }
+    }
+  }
+
+  /* ── Inline icon (SVG or <i>) ────────────────────────────────────────── */
+  & .verdionFooter__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 1.125rem;
+    height: 1.125rem;
+    margin-top: 0.125rem; /* optical alignment with first line of text */
+    color: var(--color-accent, #8bc34a);
+
+    & svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  /* ── Social buttons ──────────────────────────────────────────────────── */
+  & .verdionFooter__socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+    margin-top: 0.25rem;
+  }
+
+  & .verdionFooter__socialBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease,
+      transform 0.2s ease;
+
+    & svg {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    &:hover,
+    &:focus-visible {
+      background-color: var(--color-brand, #2e7d32);
+      border-color: var(--color-brand, #2e7d32);
+      color: #ffffff;
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      & {
+        transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        transform: none !important;
+      }
+    }
+  }
+
+  /* ── Bottom bar ──────────────────────────────────────────────────────── */
+  & .verdionFooter__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.25rem;
+
+    @media (min-width: 768px) {
+      padding: 1.25rem 2.5rem;
+    }
+
+    @media (min-width: 1024px) {
+      padding: 1.25rem 4rem;
+    }
+  }
+
+  & .verdionFooter__bottomInner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+
+    @media (min-width: 640px) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+  }
+
+  & .verdionFooter__copy {
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.45);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  & .verdionFooter__legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  & .verdionFooter__legalLink {
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+
+    &:hover,
+    &:focus-visible {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      outline: 2px solid var(--color-accent, #8bc34a);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+  }
+}
