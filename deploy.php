@@ -36,9 +36,15 @@ task('theme:vendors', function () {
     run('cd {{release_path}}/web/app/themes/verdion && {{bin/composer}} install --no-dev --optimize-autoloader --no-interaction');
 });
 
+task('theme:build_local', function () {
+    runLocally('cd web/app/themes/verdion && rm -f public/hot && npm ci && npm run build && npm run build:blocks');
+})->once();
+
 task('theme:upload_assets', function () {
     $localThemePath = __DIR__ . '/web/app/themes/verdion';
-    upload($localThemePath . '/public/', '{{release_path}}/web/app/themes/verdion/public/');
+    upload($localThemePath . '/public/', '{{release_path}}/web/app/themes/verdion/public/', [
+        'options' => ['--exclude=hot'],
+    ]);
     run('chmod -R u+rwX,go+rX {{release_path}}/web/app/themes/verdion/public');
 });
 
@@ -46,12 +52,21 @@ task('php:reload', function () {
     run('pkill -9 -u $(whoami) -f "^lsphp$" 2>/dev/null || true');
 });
 
+task('theme:cache_clear', function () {
+    run('cd {{deploy_path}}/current/web/app/themes/verdion && \
+        find storage/framework/cache -type f -delete 2>/dev/null || true; \
+        find storage/framework/views -type f -delete 2>/dev/null || true; \
+        find bootstrap/cache -name "*.php" -delete 2>/dev/null || true');
+});
+
 task('deploy', [
     'deploy:prepare',
     'deploy:vendors',
     'theme:vendors',
+    'theme:build_local',
     'theme:upload_assets',
     'deploy:publish',
+    'theme:cache_clear',
     'php:reload',
 ]);
 
