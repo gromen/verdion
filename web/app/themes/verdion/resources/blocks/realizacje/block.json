@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "verdion/realizacje",
+  "version": "1.0.0",
+  "title": "Verdion Realizacje",
+  "category": "verdion",
+  "icon": "portfolio",
+  "description": "Homepage section displaying the latest realizacje (portfolio items) as cards.",
+  "textdomain": "verdion",
+  "keywords": ["realizacje", "portfolio", "cards", "latest"],
+  "supports": {
+    "align": ["full"],
+    "anchor": true,
+    "html": false,
+    "multiple": false,
+    "reusable": false
+  },
+  "attributes": {
+    "subtitle": {
+      "type": "string",
+      "default": "NASZE REALIZACJE"
+    },
+    "title": {
+      "type": "string",
+      "default": "Poznaj efekty naszej pracy"
+    },
+    "desc": {
+      "type": "string",
+      "default": ""
+    },
+    "count": {
+      "type": "number",
+      "default": 3
+    },
+    "ctaLabel": {
+      "type": "string",
+      "default": "Zobacz wszystkie realizacje"
+    },
+    "ctaUrl": {
+      "type": "string",
+      "default": "/realizacje"
+    },
+    "ctaOpensNewTab": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}
