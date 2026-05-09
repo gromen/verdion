@@ -1,0 +1,66 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "verdion/oferta",
+  "version": "1.0.0",
+  "title": "Verdion Oferta",
+  "category": "verdion",
+  "icon": "list-view",
+  "description": "Sekcja Oferta – siatka kart usług z ikoną, tytułem, opisem i linkiem WIĘCEJ.",
+  "textdomain": "verdion",
+  "keywords": ["oferta", "usługi", "karty"],
+  "supports": {
+    "align": ["full"],
+    "anchor": true,
+    "html": false,
+    "multiple": false,
+    "reusable": false
+  },
+  "attributes": {
+    "sectionTitle": { "type": "string", "default": "OFERTA" },
+    "sectionSubtitle": { "type": "string", "default": "Kompleksowe rozwiązania dla Twojej zieleni" },
+    "items": {
+      "type": "array",
+      "default": [
+        {
+          "iconType": "image",
+          "iconSvg": "",
+          "iconId": null,
+          "iconUrl": "",
+          "iconAlt": "",
+          "title": "SYSTEMY NAWADNIANIA",
+          "description": "Projektujemy i montujemy automatyczne systemy nawadniania dopasowane do Twoich potrzeb.",
+          "linkUrl": "",
+          "linkLabel": "WIĘCEJ",
+          "linkTarget": false
+        },
+        {
+          "iconType": "image",
+          "iconSvg": "",
+          "iconId": null,
+          "iconUrl": "",
+          "iconAlt": "",
+          "title": "MODERNIZACJA SYSTEMÓW",
+          "description": "Unowocześniamy istniejące instalacje, zwiększając ich efektywność i niezawodność.",
+          "linkUrl": "",
+          "linkLabel": "WIĘCEJ",
+          "linkTarget": false
+        },
+        {
+          "iconType": "image",
+          "iconSvg": "",
+          "iconId": null,
+          "iconUrl": "",
+          "iconAlt": "",
+          "title": "SERWIS I KONSERWACJA",
+          "description": "Zapewniamy regularne przeglądy, serwis oraz szybką pomoc w razie potrzeby.",
+          "linkUrl": "",
+          "linkLabel": "WIĘCEJ",
+          "linkTarget": false
+        }
+      ]
+    }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}
