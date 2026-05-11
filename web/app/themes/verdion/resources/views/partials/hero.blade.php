@@ -52,7 +52,7 @@
         </a>
         <a
           href="{{ $ctaSecondaryUrl }}"
-          class="verdionHero__ctaSecondary verdionLink"
+          class="ctaSecondary"
         >
           {{ $ctaSecondaryLabel }} →
         </a>

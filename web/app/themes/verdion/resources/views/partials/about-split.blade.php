@@ -37,7 +37,7 @@
 
       @if ($ctaLabel !== '' && $ctaUrl !== '')
         <a
-          class="verdionAboutSplit__cta verdionLink"
+          class="ctaPrimary"
           href="{{ esc_url($ctaUrl) }}"
           @if ($ctaTarget) target="{{ $ctaTarget }}" @endif
           @if ($ctaRel) rel="{{ $ctaRel }}" @endif
