@@ -1,7 +1,4 @@
-import {
-  InspectorControls,
-  useBlockProps,
-} from '@wordpress/block-editor';
+import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { registerBlockType } from '@wordpress/blocks';
 import {
   Button,
@@ -67,17 +64,21 @@ function Edit({ attributes, setAttributes }) {
 
   function updateOfertaLink(index, key, value) {
     const updated = (ofertaLinks ?? []).map((link, i) =>
-      i === index ? { ...link, [key]: value } : link
+      i === index ? { ...link, [key]: value } : link,
     );
     setAttributes({ ofertaLinks: updated });
   }
 
   function addOfertaLink() {
-    setAttributes({ ofertaLinks: [...(ofertaLinks ?? []), { label: '', url: '' }] });
+    setAttributes({
+      ofertaLinks: [...(ofertaLinks ?? []), { label: '', url: '' }],
+    });
   }
 
   function removeOfertaLink(index) {
-    setAttributes({ ofertaLinks: (ofertaLinks ?? []).filter((_, i) => i !== index) });
+    setAttributes({
+      ofertaLinks: (ofertaLinks ?? []).filter((_, i) => i !== index),
+    });
   }
 
   return (
@@ -105,7 +106,9 @@ function Edit({ attributes, setAttributes }) {
               options={menuOptions}
               __next40pxDefaultSize={true}
               __nextHasNoMarginBottom={true}
-              onChange={(val) => setAttributes({ quickLinksMenuId: Number(val) })}
+              onChange={(val) =>
+                setAttributes({ quickLinksMenuId: Number(val) })
+              }
             />
           )}
           <p style={{ fontSize: '12px', color: '#757575', margin: '8px 0 0' }}>
@@ -278,7 +281,14 @@ function Edit({ attributes, setAttributes }) {
                   {tagline}
                 </p>
               ) : (
-                <p style={{ fontSize: '13px', opacity: 0.4, margin: 0, fontStyle: 'italic' }}>
+                <p
+                  style={{
+                    fontSize: '13px',
+                    opacity: 0.4,
+                    margin: 0,
+                    fontStyle: 'italic',
+                  }}
+                >
                   Tagline (panel boczny)
                 </p>
               )}
@@ -303,7 +313,14 @@ function Edit({ attributes, setAttributes }) {
                   [Menu: {selectedMenuName}]
                 </p>
               ) : (
-                <p style={{ fontSize: '13px', opacity: 0.4, margin: 0, fontStyle: 'italic' }}>
+                <p
+                  style={{
+                    fontSize: '13px',
+                    opacity: 0.4,
+                    margin: 0,
+                    fontStyle: 'italic',
+                  }}
+                >
                   [Menu: nie wybrano]
                 </p>
               )}
@@ -334,7 +351,14 @@ function Edit({ attributes, setAttributes }) {
                   ))}
                 </ul>
               ) : (
-                <p style={{ fontSize: '13px', opacity: 0.4, margin: 0, fontStyle: 'italic' }}>
+                <p
+                  style={{
+                    fontSize: '13px',
+                    opacity: 0.4,
+                    margin: 0,
+                    fontStyle: 'italic',
+                  }}
+                >
                   Brak linków oferty
                 </p>
               )}
@@ -356,22 +380,46 @@ function Edit({ attributes, setAttributes }) {
               </p>
               <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
                 {phone && (
-                  <li style={{ fontSize: '13px', opacity: 0.75, marginBottom: '4px' }}>
+                  <li
+                    style={{
+                      fontSize: '13px',
+                      opacity: 0.75,
+                      marginBottom: '4px',
+                    }}
+                  >
                     {phone}
                   </li>
                 )}
                 {email && (
-                  <li style={{ fontSize: '13px', opacity: 0.75, marginBottom: '4px' }}>
+                  <li
+                    style={{
+                      fontSize: '13px',
+                      opacity: 0.75,
+                      marginBottom: '4px',
+                    }}
+                  >
                     {email}
                   </li>
                 )}
                 {city && (
-                  <li style={{ fontSize: '13px', opacity: 0.75, marginBottom: '4px' }}>
+                  <li
+                    style={{
+                      fontSize: '13px',
+                      opacity: 0.75,
+                      marginBottom: '4px',
+                    }}
+                  >
                     {city}
                   </li>
                 )}
                 {!phone && !email && !city && (
-                  <li style={{ fontSize: '13px', opacity: 0.4, fontStyle: 'italic' }}>
+                  <li
+                    style={{
+                      fontSize: '13px',
+                      opacity: 0.4,
+                      fontStyle: 'italic',
+                    }}
+                  >
                     Dane kontaktowe (panel boczny)
                   </li>
                 )}
@@ -394,22 +442,46 @@ function Edit({ attributes, setAttributes }) {
               </p>
               <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
                 {facebookUrl && (
-                  <li style={{ fontSize: '13px', opacity: 0.75, marginBottom: '4px' }}>
+                  <li
+                    style={{
+                      fontSize: '13px',
+                      opacity: 0.75,
+                      marginBottom: '4px',
+                    }}
+                  >
                     Facebook
                   </li>
                 )}
                 {instagramUrl && (
-                  <li style={{ fontSize: '13px', opacity: 0.75, marginBottom: '4px' }}>
+                  <li
+                    style={{
+                      fontSize: '13px',
+                      opacity: 0.75,
+                      marginBottom: '4px',
+                    }}
+                  >
                     Instagram
                   </li>
                 )}
                 {socialThirdUrl && (
-                  <li style={{ fontSize: '13px', opacity: 0.75, marginBottom: '4px' }}>
+                  <li
+                    style={{
+                      fontSize: '13px',
+                      opacity: 0.75,
+                      marginBottom: '4px',
+                    }}
+                  >
                     Social #3
                   </li>
                 )}
                 {!facebookUrl && !instagramUrl && !socialThirdUrl && (
-                  <li style={{ fontSize: '13px', opacity: 0.4, fontStyle: 'italic' }}>
+                  <li
+                    style={{
+                      fontSize: '13px',
+                      opacity: 0.4,
+                      fontStyle: 'italic',
+                    }}
+                  >
                     Linki social (panel boczny)
                   </li>
                 )}
@@ -434,13 +506,23 @@ function Edit({ attributes, setAttributes }) {
             </span>
             <div style={{ display: 'flex', gap: '16px' }}>
               {privacyLabel && (
-                <span style={{ fontSize: '12px', opacity: 0.55 }}>{privacyLabel}</span>
+                <span style={{ fontSize: '12px', opacity: 0.55 }}>
+                  {privacyLabel}
+                </span>
               )}
               {cookiesLabel && (
-                <span style={{ fontSize: '12px', opacity: 0.55 }}>{cookiesLabel}</span>
+                <span style={{ fontSize: '12px', opacity: 0.55 }}>
+                  {cookiesLabel}
+                </span>
               )}
               {!privacyLabel && !cookiesLabel && (
-                <span style={{ fontSize: '12px', opacity: 0.35, fontStyle: 'italic' }}>
+                <span
+                  style={{
+                    fontSize: '12px',
+                    opacity: 0.35,
+                    fontStyle: 'italic',
+                  }}
+                >
                   Polityka / Cookies (panel boczny)
                 </span>
               )}

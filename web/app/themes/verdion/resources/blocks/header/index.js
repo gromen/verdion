@@ -1,7 +1,4 @@
-import {
-  InspectorControls,
-  useBlockProps,
-} from '@wordpress/block-editor';
+import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { registerBlockType } from '@wordpress/blocks';
 import {
   PanelBody,

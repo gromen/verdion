@@ -33,7 +33,9 @@ function Edit({ attributes, setAttributes }) {
 
   function updateItem(index, patch) {
     setAttributes({
-      items: items.map((item, i) => (i === index ? { ...item, ...patch } : item)),
+      items: items.map((item, i) =>
+        i === index ? { ...item, ...patch } : item,
+      ),
     });
   }
 
@@ -257,11 +259,14 @@ function Edit({ attributes, setAttributes }) {
                 ) : (
                   <div className="verdionOferta__iconPlaceholder" />
                 )}
-                <strong className="verdionOferta__cardTitle">{item.title}</strong>
+                <strong className="verdionOferta__cardTitle">
+                  {item.title}
+                </strong>
                 <p className="verdionOferta__cardDesc">{item.description}</p>
                 {item.linkUrl && (
                   <span className="verdionOferta__cardLink">
-                    {item.linkLabel || 'WIĘCEJ'} <span aria-hidden="true">→</span>
+                    {item.linkLabel || 'WIĘCEJ'}{' '}
+                    <span aria-hidden="true">→</span>
                   </span>
                 )}
               </div>

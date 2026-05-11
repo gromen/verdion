@@ -30,7 +30,9 @@ function Edit({ attributes, setAttributes }) {
   function addStep() {
     if (steps.length >= 8) return;
     const num = String(steps.length + 1).padStart(2, '0');
-    setAttributes({ steps: [...steps, { number: num, title: '', description: '' }] });
+    setAttributes({
+      steps: [...steps, { number: num, title: '', description: '' }],
+    });
   }
 
   function removeStep(index) {
@@ -38,7 +40,9 @@ function Edit({ attributes, setAttributes }) {
   }
 
   function updateStep(index, patch) {
-    setAttributes({ steps: steps.map((s, i) => (i === index ? { ...s, ...patch } : s)) });
+    setAttributes({
+      steps: steps.map((s, i) => (i === index ? { ...s, ...patch } : s)),
+    });
   }
 
   function moveStep(from, to) {
@@ -170,14 +174,19 @@ function Edit({ attributes, setAttributes }) {
       {/* Canvas preview */}
       <div
         {...blockProps}
-        style={{ ...(blockProps.style || {}), ...(backgroundColor ? { backgroundColor } : {}) }}
+        style={{
+          ...(blockProps.style || {}),
+          ...(backgroundColor ? { backgroundColor } : {}),
+        }}
       >
         <div className="container-content">
           <header className="verdionHowWeWorks__header">
             {subtitle && (
               <p className="verdionHowWeWorks__subtitle">{subtitle}</p>
             )}
-            <h2 className="verdionHowWeWorks__title">{title || 'Jak pracujemy?'}</h2>
+            <h2 className="verdionHowWeWorks__title">
+              {title || 'Jak pracujemy?'}
+            </h2>
           </header>
 
           <div className="verdionHowWeWorks__steps">
@@ -192,7 +201,9 @@ function Edit({ attributes, setAttributes }) {
                   {step.title || '(brak tytułu)'}
                 </h3>
                 {step.description && (
-                  <p className="verdionHowWeWorks__stepDesc">{step.description}</p>
+                  <p className="verdionHowWeWorks__stepDesc">
+                    {step.description}
+                  </p>
                 )}
               </div>
             ))}

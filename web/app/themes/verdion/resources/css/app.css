@@ -1468,7 +1468,9 @@
       color: rgba(255, 255, 255, 0.75);
       text-decoration: none;
       font-size: 0.9375rem;
-      transition: color 0.2s ease, padding-left 0.2s ease;
+      transition:
+        color 0.2s ease,
+        padding-left 0.2s ease;
       display: inline-block;
 
       &:hover,
@@ -1580,7 +1582,10 @@
 
     @media (prefers-reduced-motion: reduce) {
       & {
-        transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        transition:
+          background-color 0.2s ease,
+          border-color 0.2s ease,
+          color 0.2s ease;
         transform: none !important;
       }
     }
@@ -1661,7 +1666,9 @@
   background: rgba(15, 45, 30, 0.97);
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(8px);
-  transition: background 0.35s ease, box-shadow 0.35s ease;
+  transition:
+    background 0.35s ease,
+    box-shadow 0.35s ease;
   width: 100%;
 
   &.verdionHeader--transparent {
@@ -1737,7 +1744,9 @@
         color: rgba(255, 255, 255, 0.88);
         text-decoration: none;
         border-radius: 4px;
-        transition: color 0.2s ease, background 0.2s ease;
+        transition:
+          color 0.2s ease,
+          background 0.2s ease;
         letter-spacing: 0.01em;
 
         &:hover,
@@ -1768,7 +1777,9 @@
     border-radius: 6px;
     white-space: nowrap;
     flex-shrink: 0;
-    transition: background 0.2s ease, transform 0.15s ease;
+    transition:
+      background 0.2s ease,
+      transform 0.15s ease;
 
     @media (min-width: 1024px) {
       display: inline-flex;
@@ -1820,7 +1831,10 @@
     background: #ffffff;
     border-radius: 2px;
     transform-origin: center;
-    transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease,
+      width 0.3s ease;
   }
 
   /* Hamburger → X animation */
@@ -1842,7 +1856,9 @@
     max-height: 0;
     overflow: hidden;
     background: rgba(15, 45, 30, 0.98);
-    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
+    transition:
+      max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      padding 0.4s ease;
 
     @media (min-width: 1024px) {
       display: none;
@@ -1875,7 +1891,9 @@
         font-weight: 500;
         color: rgba(255, 255, 255, 0.88);
         text-decoration: none;
-        transition: color 0.2s ease, padding-left 0.2s ease;
+        transition:
+          color 0.2s ease,
+          padding-left 0.2s ease;
 
         &:hover,
         &:focus-visible {
@@ -1929,4 +1947,11 @@
   @media (min-width: 783px) {
     top: 32px;
   }
+}
+
+/* Override WP global underline for UI links (buttons, cards, nav).
+   Must be unlayered — rules inside @layer base lose to unlayered WP global styles
+   because WP's a:where(:not(.wp-element-button)) is also unlayered. */
+.verdionLink {
+  text-decoration: none;
 }

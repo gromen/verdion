@@ -18,7 +18,10 @@
   },
   "attributes": {
     "sectionTitle": { "type": "string", "default": "OFERTA" },
-    "sectionSubtitle": { "type": "string", "default": "Kompleksowe rozwiązania dla Twojej zieleni" },
+    "sectionSubtitle": {
+      "type": "string",
+      "default": "Kompleksowe rozwiązania dla Twojej zieleni"
+    },
     "items": {
       "type": "array",
       "default": [

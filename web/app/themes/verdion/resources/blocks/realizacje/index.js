@@ -21,15 +21,8 @@ registerBlockType(metadata.name, {
 });
 
 function Edit({ attributes, setAttributes }) {
-  const {
-    subtitle,
-    title,
-    desc,
-    count,
-    ctaLabel,
-    ctaUrl,
-    ctaOpensNewTab,
-  } = attributes;
+  const { subtitle, title, desc, count, ctaLabel, ctaUrl, ctaOpensNewTab } =
+    attributes;
 
   const blockProps = useBlockProps({
     className: 'verdionRealizacje verdionRealizacje--editor alignfull',
@@ -38,7 +31,7 @@ function Edit({ attributes, setAttributes }) {
   const { records: posts, isResolving } = useEntityRecords(
     'postType',
     'realizacja',
-    { per_page: count, _embed: true }
+    { per_page: count, _embed: true },
   );
 
   return (
@@ -115,13 +108,17 @@ function Edit({ attributes, setAttributes }) {
               onChange={(val) => setAttributes({ title: val })}
               placeholder="Tytuł sekcji…"
             />
-            {desc ? (
-              <p className="verdionRealizacje__desc">{desc}</p>
-            ) : null}
+            {desc ? <p className="verdionRealizacje__desc">{desc}</p> : null}
           </header>
 
           {isResolving && (
-            <div style={{ display: 'flex', justifyContent: 'center', padding: '2rem' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                padding: '2rem',
+              }}
+            >
               <Spinner />
             </div>
           )}
@@ -134,19 +131,25 @@ function Edit({ attributes, setAttributes }) {
                 const imgAlt = media?.alt_text ?? post.title?.rendered ?? '';
                 const termGroups = post._embedded?.['wp:term'] ?? [];
                 const kategorie = termGroups.find(
-                  (g) => g[0]?.taxonomy === 'realizacja_kategoria'
+                  (g) => g[0]?.taxonomy === 'realizacja_kategoria',
                 );
                 const kategorieName = kategorie?.[0]?.name ?? null;
                 return (
                   <div key={post.id} className="realizacjaCard">
                     <div className="realizacjaCard__thumb">
                       {imgSrc ? (
-                        <img src={imgSrc} alt={imgAlt} className="realizacjaCard__img" />
+                        <img
+                          src={imgSrc}
+                          alt={imgAlt}
+                          className="realizacjaCard__img"
+                        />
                       ) : (
                         <div className="realizacjaCard__imgPlaceholder" />
                       )}
                       {kategorieName && (
-                        <span className="realizacjaCard__badge">{kategorieName}</span>
+                        <span className="realizacjaCard__badge">
+                          {kategorieName}
+                        </span>
                       )}
                     </div>
                     <div className="realizacjaCard__body">
@@ -161,7 +164,9 @@ function Edit({ attributes, setAttributes }) {
           )}
 
           {!isResolving && (!posts || posts.length === 0) && (
-            <p style={{ textAlign: 'center', opacity: 0.55, padding: '2rem 0' }}>
+            <p
+              style={{ textAlign: 'center', opacity: 0.55, padding: '2rem 0' }}
+            >
               Brak realizacji do wyświetlenia.
             </p>
           )}

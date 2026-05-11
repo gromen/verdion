@@ -17,7 +17,10 @@
     "reusable": false
   },
   "attributes": {
-    "tagline": { "type": "string", "default": "Automatyczne systemy nawadniania i trawniki." },
+    "tagline": {
+      "type": "string",
+      "default": "Automatyczne systemy nawadniania i trawniki."
+    },
     "quickLinksMenuId": { "type": "integer", "default": 0 },
     "ofertaLinks": {
       "type": "array",
@@ -33,7 +36,10 @@
     "facebookUrl": { "type": "string", "default": "" },
     "instagramUrl": { "type": "string", "default": "" },
     "socialThirdUrl": { "type": "string", "default": "" },
-    "copyrightText": { "type": "string", "default": "© 2026 VERDION. Wszelkie prawa zastrzeżone." },
+    "copyrightText": {
+      "type": "string",
+      "default": "© 2026 VERDION. Wszelkie prawa zastrzeżone."
+    },
     "privacyLabel": { "type": "string", "default": "Polityka prywatności" },
     "privacyUrl": { "type": "string", "default": "" },
     "cookiesLabel": { "type": "string", "default": "Cookies" },
