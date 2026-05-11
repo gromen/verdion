@@ -155,6 +155,33 @@
     max-width: var(--wp--style--global--wide-size, 90rem);
     margin-inline: auto;
   }
+
+  /* Global primary CTA button */
+  .ctaPrimary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.875rem 1.75rem;
+    background: var(--color-brand, #2e7d32);
+    color: #ffffff !important;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration: none !important;
+    border-radius: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition:
+      background 0.2s ease,
+      transform 0.15s ease;
+
+    &:hover,
+    &:focus-visible {
+      background: var(--color-accent, #8bc34a);
+      color: var(--color-primary, #0f2d1e) !important;
+      outline: 2px solid var(--color-accent, #8bc34a);
+      outline-offset: 2px;
+    }
+  }
 }
 
 /* ==========================================================================
@@ -234,17 +261,7 @@
   }
 
   .verdionHero__ctaPrimary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.375rem;
-    background-color: var(--wp--preset--color--brand);
-    color: #fff;
     padding: 0.875rem 1.75rem;
-    border-radius: 0.375rem;
-    font-weight: 600;
-    font-size: 0.9375rem;
-    text-decoration: none;
-    transition: background-color 0.2s ease;
 
     &:hover {
       background-color: var(--wp--preset--color--brand-light);
@@ -537,21 +554,11 @@
   }
 
   .verdionRealizacje__cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.375rem;
-    background-color: var(--wp--preset--color--brand);
-    color: #fff;
     padding: 0.875rem 1.75rem;
-    border-radius: 0.375rem;
     font-family: var(--font-sans);
-    font-weight: 600;
-    font-size: 0.9375rem;
-    text-decoration: none;
-    transition: background-color 0.2s var(--ease-soft, ease);
 
     &:hover {
-      background-color: var(--wp--preset--color--brand-light);
+      background: var(--color-brand-light, var(--wp--preset--color--brand-light));
       color: #fff;
     }
   }
@@ -1768,30 +1775,9 @@
   /* CTA button */
   & .verdionHeader__cta {
     display: none;
-    padding: 0.5rem 1.25rem;
-    background: var(--color-brand, #2e7d32);
-    color: #ffffff;
-    font-size: 0.9375rem;
-    font-weight: 600;
-    text-decoration: none;
-    border-radius: 6px;
-    white-space: nowrap;
-    flex-shrink: 0;
-    transition:
-      background 0.2s ease,
-      transform 0.15s ease;
 
     @media (min-width: 1024px) {
       display: inline-flex;
-      align-items: center;
-    }
-
-    &:hover,
-    &:focus-visible {
-      background: var(--color-accent, #8bc34a);
-      color: var(--color-primary, #0f2d1e);
-      outline: 2px solid var(--color-accent, #8bc34a);
-      outline-offset: 2px;
     }
   }
 
@@ -1949,9 +1935,6 @@
   }
 }
 
-/* Override WP global underline for UI links (buttons, cards, nav).
-   Must be unlayered — rules inside @layer base lose to unlayered WP global styles
-   because WP's a:where(:not(.wp-element-button)) is also unlayered. */
 .verdionLink {
   text-decoration: none;
 }

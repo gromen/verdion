@@ -36,7 +36,7 @@
             <dt>{{ __('Kategoria', 'verdion') }}</dt>
             <dd>
               @foreach ($kategorie as $term)
-                <a href="{{ get_term_link($term) }}" class="realizacja__tag">{{ $term->name }}</a>
+                <a href="{{ get_term_link($term) }}" class="realizacja__tag verdionLink">{{ $term->name }}</a>
               @endforeach
             </dd>
           </div>
@@ -86,7 +86,7 @@
     @endif
 
     <nav class="realizacja__nav" aria-label="{{ __('Nawigacja realizacji', 'verdion') }}">
-      <a href="{{ get_post_type_archive_link('realizacja') }}" class="realizacja__navBack">
+      <a href="{{ get_post_type_archive_link('realizacja') }}" class="realizacja__navBack verdionLink">
         ← {{ __('Wszystkie realizacje', 'verdion') }}
       </a>
     </nav>

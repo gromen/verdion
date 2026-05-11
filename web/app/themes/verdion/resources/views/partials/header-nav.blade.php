@@ -11,7 +11,7 @@
   <div class="verdionHeader__inner container-content">
 
     {{-- Logo --}}
-    <a href="{{ home_url('/') }}" class="verdionHeader__logo" aria-label="Verdion – strona główna">
+    <a href="{{ home_url('/') }}" class="verdionHeader__logo verdionLink" aria-label="Verdion – strona główna">
       <svg class="verdionHeader__logoMark" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 40 40" fill="none" aria-hidden="true">
         <path d="M20 4C14 10 8 14 8 22c0 6.627 5.373 12 12 12s12-5.373 12-12C32 14 26 10 20 4z" fill="#2e7d32"/>
         <path d="M20 4C20 14 16 20 20 32" stroke="#8bc34a" stroke-width="1.5" stroke-linecap="round"/>
@@ -44,7 +44,7 @@
     @if ($ctaLabel)
       <a
         href="{{ $ctaUrl ? esc_url($ctaUrl) : '#kontakt' }}"
-        class="verdionHeader__cta"
+        class="verdionHeader__cta ctaPrimary verdionLink"
       >{{ $ctaLabel }}</a>
     @endif
 

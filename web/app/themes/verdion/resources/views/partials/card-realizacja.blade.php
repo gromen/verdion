@@ -6,7 +6,7 @@
 @endphp
 
 <article @php(post_class('realizacjaCard'))>
-  <a href="{{ get_permalink() }}" class="realizacjaCard__link" aria-label="{{ get_the_title() }}">
+  <a href="{{ get_permalink() }}" class="realizacjaCard__link verdionLink" aria-label="{{ get_the_title() }}">
 
     <div class="realizacjaCard__thumb">
       @if (has_post_thumbnail())

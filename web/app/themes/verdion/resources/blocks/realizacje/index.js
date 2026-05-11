@@ -173,7 +173,7 @@ function Edit({ attributes, setAttributes }) {
 
           {ctaLabel && ctaUrl && (
             <div className="verdionRealizacje__ctaWrap">
-              <span className="verdionRealizacje__cta">
+              <span className="verdionRealizacje__cta verdionLink">
                 {ctaLabel} <span aria-hidden="true">→</span>
               </span>
             </div>

@@ -49,7 +49,7 @@
       <div class="verdionRealizacje__ctaWrap">
         <a
           href="{{ esc_url($ctaUrl) }}"
-          class="verdionRealizacje__cta"
+          class="verdionRealizacje__cta ctaPrimary verdionLink"
           @if ($ctaOpensNewTab) target="_blank" rel="noopener noreferrer" @endif
         >
           {{ $ctaLabel }} <span aria-hidden="true">→</span>

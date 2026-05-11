@@ -46,13 +46,13 @@
       <div class="verdionHero__cta">
         <a
           href="{{ $ctaPrimaryUrl }}"
-          class="verdionHero__ctaPrimary wp-element-button"
+          class="ctaPrimary"
         >
           {{ $ctaPrimaryLabel }} →
         </a>
         <a
           href="{{ $ctaSecondaryUrl }}"
-          class="verdionHero__ctaSecondary"
+          class="verdionHero__ctaSecondary verdionLink"
         >
           {{ $ctaSecondaryLabel }} →
         </a>
