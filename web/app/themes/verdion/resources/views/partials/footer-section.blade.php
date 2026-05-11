@@ -22,7 +22,7 @@
 
     {{-- Col 1: Logo + Tagline --}}
     <div class="verdionFooter__brand">
-      <a href="{{ home_url('/') }}" class="verdionFooter__logo verdionLink" aria-label="Verdion – strona główna">
+      <a href="{{ home_url('/') }}" class="verdionFooter__logo" aria-label="Verdion – strona główna">
         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
           <path d="M20 4C14 10 8 14 8 22c0 6.627 5.373 12 12 12s12-5.373 12-12C32 14 26 10 20 4z" fill="#2e7d32"/>
           <path d="M20 4C20 14 16 20 20 32" stroke="#8bc34a" stroke-width="1.5" stroke-linecap="round"/>
@@ -63,7 +63,7 @@
           @foreach ($ofertaLinks as $link)
             <li>
               @if (!empty($link['url']))
-                <a href="{{ esc_url($link['url']) }}" class="verdionLink">{{ $link['label'] }}</a>
+                <a href="{{ esc_url($link['url']) }}">{{ $link['label'] }}</a>
               @else
                 <span>{{ $link['label'] }}</span>
               @endif
@@ -82,7 +82,7 @@
             <svg class="verdionFooter__icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
             </svg>
-            <a href="tel:{{ preg_replace('/\s+/', '', $phone) }}" class="verdionLink">{{ $phone }}</a>
+            <a href="tel:{{ preg_replace('/\s+/', '', $phone) }}">{{ $phone }}</a>
           </li>
         @endif
         @if ($email)
@@ -91,7 +91,7 @@
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
               <polyline points="22,6 12,12 2,6"/>
             </svg>
-            <a href="mailto:{{ $email }}" class="verdionLink">{{ $email }}</a>
+            <a href="mailto:{{ $email }}">{{ $email }}</a>
           </li>
         @endif
         @if ($city)
@@ -112,7 +112,7 @@
       <div class="verdionFooter__socials">
         <a
           href="{{ $facebookUrl ? esc_url($facebookUrl) : '#' }}"
-          class="verdionFooter__socialBtn verdionLink"
+          class="verdionFooter__socialBtn"
           @if($facebookUrl) target="_blank" rel="noopener noreferrer" @endif
           aria-label="Facebook"
         >
@@ -122,7 +122,7 @@
         </a>
         <a
           href="{{ $instagramUrl ? esc_url($instagramUrl) : '#' }}"
-          class="verdionFooter__socialBtn verdionLink"
+          class="verdionFooter__socialBtn"
           @if($instagramUrl) target="_blank" rel="noopener noreferrer" @endif
           aria-label="Instagram"
         >
@@ -134,7 +134,7 @@
         </a>
         <a
           href="{{ $socialThirdUrl ? esc_url($socialThirdUrl) : '#' }}"
-          class="verdionFooter__socialBtn verdionLink"
+          class="verdionFooter__socialBtn"
           @if($socialThirdUrl) target="_blank" rel="noopener noreferrer" @endif
           aria-label="Lokalizacja"
         >
@@ -154,12 +154,12 @@
       <p class="verdionFooter__copy">{{ $copyrightText }}</p>
       <nav class="verdionFooter__legal" aria-label="Linki prawne">
         @if ($privacyUrl)
-          <a href="{{ esc_url($privacyUrl) }}" class="verdionFooter__legalLink verdionLink">{{ $privacyLabel }}</a>
+          <a href="{{ esc_url($privacyUrl) }}" class="verdionFooter__legalLink">{{ $privacyLabel }}</a>
         @else
           <span class="verdionFooter__legalLink">{{ $privacyLabel }}</span>
         @endif
         @if ($cookiesUrl)
-          <a href="{{ esc_url($cookiesUrl) }}" class="verdionFooter__legalLink verdionLink">{{ $cookiesLabel }}</a>
+          <a href="{{ esc_url($cookiesUrl) }}" class="verdionFooter__legalLink">{{ $cookiesLabel }}</a>
         @else
           <span class="verdionFooter__legalLink">{{ $cookiesLabel }}</span>
         @endif
