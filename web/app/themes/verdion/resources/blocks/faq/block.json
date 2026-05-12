@@ -1,0 +1,42 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "verdion/faq",
+  "version": "1.0.0",
+  "title": "Verdion FAQ",
+  "category": "verdion",
+  "icon": "editor-help",
+  "description": "Sekcja najczęstszych pytań z tytułem i listą Q&A.",
+  "textdomain": "verdion",
+  "keywords": ["faq", "pytania", "odpowiedzi", "accordion"],
+  "supports": {
+    "align": ["full"],
+    "anchor": true,
+    "html": false
+  },
+  "attributes": {
+    "sectionTitle": {
+      "type": "string",
+      "default": "NAJCZĘSTSZE PYTANIA"
+    },
+    "items": {
+      "type": "array",
+      "default": [
+        {
+          "question": "Jak długo trwa montaż systemu nawadniania?",
+          "answer": "Standardowy ogród do 500 m² zajmuje 1–2 dni robocze."
+        },
+        {
+          "question": "Czy system działa zimą?",
+          "answer": "System należy odwodnić przed zimą — wykonujemy to w ramach serwisu."
+        },
+        {
+          "question": "Jakie marki stosujecie?",
+          "answer": "Pracujemy z komponentami Hunter, Rain Bird i Irritrol."
+        }
+      ]
+    }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}

@@ -34,16 +34,7 @@
       ]
     },
     "galleryTitle":  { "type": "string", "default": "Nasze realizacje" },
-    "galleryImages": { "type": "array",  "default": [] },
-    "faqTitle": { "type": "string", "default": "Najczęstsze pytania" },
-    "faqItems": {
-      "type": "array",
-      "default": [
-        { "question": "Jak długo trwa montaż systemu nawadniania?", "answer": "Standardowy ogród do 500 m² zajmuje 1–2 dni robocze." },
-        { "question": "Czy system działa zimą?",                    "answer": "System należy odwodnić przed zimą — wykonujemy to w ramach serwisu." },
-        { "question": "Jakie marki stosujecie?",                    "answer": "Pracujemy z komponentami Hunter, Rain Bird i Irritrol." }
-      ]
-    }
+    "galleryImages": { "type": "array",  "default": [] }
   },
   "editorScript": "file:./index.js",
   "render": "file:./render.php"

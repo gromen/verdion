@@ -38,6 +38,7 @@ class Oferta
             'template'           => [
                 ['verdion/offer-details', []],
                 ['verdion/how-we-works', []],
+                ['verdion/faq', []],
             ],
             'template_lock'      => false,
         ]);

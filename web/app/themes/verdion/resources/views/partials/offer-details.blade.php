@@ -11,8 +11,6 @@
   $benefits      = $attributes['benefits']      ?? [];
   $galleryTitle  = $attributes['galleryTitle']  ?? '';
   $galleryImages = $attributes['galleryImages'] ?? [];
-  $faqTitle      = $attributes['faqTitle']      ?? '';
-  $faqItems      = $attributes['faqItems']      ?? [];
   $anchor        = $attributes['anchor']        ?? '';
   $anchorAttr    = $anchor ? " id=\"{$anchor}\"" : '';
 @endphp
@@ -139,26 +137,5 @@
     </section>
   @endif
 
-  {{-- ─────────────────────────── 4. FAQ ──────────────────────────────────── --}}
-  @if (!empty($faqItems))
-    <section class="verdionOfferDetails__faq" aria-labelledby="vod-faq-title">
-      <div class="container-content">
-        @if ($faqTitle !== '')
-          <h2 id="vod-faq-title" class="verdionOfferDetails__sectionTitle">{{ $faqTitle }}</h2>
-        @endif
-
-        <div class="verdionOfferDetails__faqList">
-          @foreach ($faqItems as $item)
-            <details class="verdionOfferDetails__faqItem">
-              <summary class="verdionOfferDetails__faqQ">{{ $item['question'] ?? '' }}</summary>
-              <div class="verdionOfferDetails__faqA">
-                <p>{{ $item['answer'] ?? '' }}</p>
-              </div>
-            </details>
-          @endforeach
-        </div>
-      </div>
-    </section>
-  @endif
 
 </article>

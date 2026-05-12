@@ -36,8 +36,6 @@ function Edit({ attributes, setAttributes }) {
     benefits,
     galleryTitle,
     galleryImages,
-    faqTitle,
-    faqItems,
   } = attributes;
 
   const blockProps = useBlockProps({
@@ -49,12 +47,6 @@ function Edit({ attributes, setAttributes }) {
   function updateBenefit(index, patch) {
     setAttributes({
       benefits: benefits.map((b, i) => (i === index ? { ...b, ...patch } : b)),
-    });
-  }
-
-  function updateFaq(index, patch) {
-    setAttributes({
-      faqItems: faqItems.map((f, i) => (i === index ? { ...f, ...patch } : f)),
     });
   }
 
@@ -354,81 +346,6 @@ function Edit({ attributes, setAttributes }) {
           )}
         </PanelBody>
 
-        {/* FAQ */}
-        <PanelBody title="FAQ" initialOpen={false}>
-          <TextControl
-            label="Tytuł sekcji"
-            value={faqTitle ?? ''}
-            __next40pxDefaultSize={true}
-            __nextHasNoMarginBottom={true}
-            onChange={(val) => setAttributes({ faqTitle: val })}
-          />
-
-          {faqItems.map((item, index) => (
-            <div
-              key={index}
-              style={{
-                border: '1px solid #e0e0e0',
-                borderRadius: '4px',
-                padding: '12px',
-                marginBottom: '12px',
-                marginTop: '8px',
-              }}
-            >
-              <p style={{ fontWeight: 600, marginBottom: '8px' }}>
-                Pytanie {index + 1}
-              </p>
-              <TextControl
-                label="Pytanie"
-                value={item.question ?? ''}
-                __next40pxDefaultSize={true}
-                __nextHasNoMarginBottom={true}
-                onChange={(val) => updateFaq(index, { question: val })}
-              />
-              <TextareaControl
-                label="Odpowiedź"
-                value={item.answer ?? ''}
-                rows={3}
-                __next40pxDefaultSize={true}
-                __nextHasNoMarginBottom={true}
-                onChange={(val) => updateFaq(index, { answer: val })}
-              />
-
-              {faqItems.length > 1 && (
-                <Flex justify="flex-end">
-                  <FlexBlock>
-                    <Button
-                      isDestructive
-                      size="small"
-                      onClick={() =>
-                        setAttributes({
-                          faqItems: faqItems.filter((_, i) => i !== index),
-                        })
-                      }
-                    >
-                      Usuń
-                    </Button>
-                  </FlexBlock>
-                </Flex>
-              )}
-            </div>
-          ))}
-
-          <Button
-            variant="secondary"
-            style={{ width: '100%', marginTop: '4px' }}
-            onClick={() =>
-              setAttributes({
-                faqItems: [
-                  ...faqItems,
-                  { question: 'Nowe pytanie', answer: '' },
-                ],
-              })
-            }
-          >
-            + Dodaj
-          </Button>
-        </PanelBody>
       </InspectorControls>
 
       {/* ═══════════════════════ CANVAS PREVIEW ══════════════════ */}
@@ -645,48 +562,6 @@ function Edit({ attributes, setAttributes }) {
                       display: 'block',
                     }}
                   />
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* 5. FAQ preview */}
-        {faqItems.length > 0 && (
-          <section style={{ padding: '3rem 2rem' }}>
-            <div style={{ maxWidth: '72rem', margin: '0 auto' }}>
-              {faqTitle && (
-                <h2
-                  style={{
-                    textAlign: 'center',
-                    fontWeight: 700,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.06em',
-                    color: 'var(--color-neutral-900, #111)',
-                    marginBottom: '2rem',
-                    fontSize: '1.5rem',
-                  }}
-                >
-                  {faqTitle}
-                </h2>
-              )}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', maxWidth: '48rem', margin: '0 auto' }}>
-                {faqItems.map((item, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      border: '1px solid #e5e7eb',
-                      borderRadius: '0.5rem',
-                      padding: '1rem 1.25rem',
-                    }}
-                  >
-                    <strong style={{ display: 'block', color: 'var(--color-neutral-900, #111)', marginBottom: '0.375rem' }}>
-                      {item.question}
-                    </strong>
-                    <p style={{ fontSize: '0.875rem', color: 'var(--color-neutral-600, #555)', margin: 0 }}>
-                      {item.answer}
-                    </p>
-                  </div>
                 ))}
               </div>
             </div>
