@@ -6,6 +6,7 @@
 
 namespace App;
 
+use App\PostTypes\Oferta;
 use App\PostTypes\Realizacja;
 use App\Taxonomies\RealizacjaKategoria;
 use Illuminate\Support\Facades\Vite;
@@ -93,6 +94,7 @@ add_filter('block_categories_all', function (array $categories): array {
  * @return void
  */
 add_action('init', function () {
+    Oferta::register();
     Realizacja::register();
     RealizacjaKategoria::register();
 
