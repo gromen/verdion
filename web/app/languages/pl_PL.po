@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 6.9.x package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-04-09 06:13:32+0000\n"
+"PO-Revision-Date: 2026-05-07 05:20:47+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17788,11 +17788,6 @@ msgstr "Brak uprawnień do dodawania plików."
 msgid "Deleted:"
 msgstr "Skasowano:"
 
-#: wp-includes/customize/class-wp-customize-nav-menu-location-control.php:86
-#: wp-includes/widgets/class-wp-nav-menu-widget.php:201
-msgid "Edit Menu"
-msgstr "Edytuj Menu"
-
 #: wp-includes/class-wp-xmlrpc-server.php:1850
 #: wp-includes/class-wp-xmlrpc-server.php:5307
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1071
@@ -20124,6 +20119,11 @@ msgstr "Styl o identyfikatorze „%1$s” został dodany do kolejki z zależnoś
 msgid "Post updated."
 msgstr "Zaktualizowano wpis."
 
+#: wp-includes/customize/class-wp-customize-nav-menu-location-control.php:86
+#: wp-includes/widgets/class-wp-nav-menu-widget.php:201
+msgid "Edit Menu"
+msgstr "Edytuj menu"
+
 #: wp-activate.php:126
 msgid "Activation Key Required"
 msgstr "Wymagany jest klucz aktywacyjny"
@@ -21009,10 +21009,6 @@ msgstr[2] "%s elementów"
 #: wp-includes/admin-bar.php:882
 msgid "View User"
 msgstr "Zobacz użytkownika"
-
-#: wp-includes/admin-bar.php:928
-msgid "Edit User"
-msgstr "Edytuj użytkownika"
 
 #: wp-includes/class-wp-customize-manager.php:2662
 msgid "The previous set of changes has already been published. Please try saving your current set of changes again."
@@ -22981,3 +22977,7 @@ msgstr "Yelp"
 msgctxt "social link block variation name"
 msgid "YouTube"
 msgstr "YouTube"
+
+#: wp-includes/admin-bar.php:928
+msgid "Edit User"
+msgstr "Edytuj konto użytkownika"

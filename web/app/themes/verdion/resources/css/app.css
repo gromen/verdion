@@ -77,6 +77,39 @@
 }
 
 /* ==========================================================================
+   Component tokens — NOT in @theme to avoid Tailwind/theme.json color-preset
+   generation that would interfere with WP global link styles.
+   ========================================================================== */
+:root {
+  --color-border: #d1d5db;
+  --color-border-strong: #9ca3af;
+  --color-surface: #f8fafc;
+  --color-text-primary: #111827;
+  --color-text-muted: #6b7280;
+
+  --btn-radius: 0.375rem;
+  --btn-font-size: 0.9375rem;
+  --btn-font-weight: 600;
+  --btn-padding-y: 0.875rem;
+  --btn-padding-x: 1.75rem;
+  --btn-padding-sm-y: 0.5rem;
+  --btn-padding-sm-x: 1.25rem;
+  --btn-transition: background 0.2s ease, transform 0.15s ease;
+
+  --btn-primary-bg: var(--color-brand);
+  --btn-primary-text: #ffffff;
+  --btn-primary-bg-hover: var(--color-accent);
+  --btn-primary-text-hover: #000;
+
+  --btn-secondary-border: var(--color-brand);
+  --btn-secondary-text: var(--color-brand);
+  --btn-secondary-bg: transparent;
+  --btn-secondary-bg-hover: rgba(46, 125, 50, 0.08);
+  --btn-secondary-border-hover: var(--color-brand);
+  --btn-secondary-text-hover: var(--color-brand);
+}
+
+/* ==========================================================================
    Base styles — mobile-first
    ========================================================================== */
 @layer base {
@@ -105,7 +138,7 @@
   h5,
   h6 {
     font-family: var(--font-display);
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.15;
   }
@@ -154,6 +187,58 @@
   .alignwide {
     max-width: var(--wp--style--global--wide-size, 90rem);
     margin-inline: auto;
+  }
+}
+
+/* ==========================================================================
+   Global CTA buttons — unlayered so they win over WP global link styles
+   (a:where(:not(.wp-element-button)) which is also unlayered).
+   ========================================================================== */
+.ctaPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: var(--btn-padding-y) var(--btn-padding-x);
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  border-radius: var(--btn-radius);
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: var(--btn-transition);
+
+  &:hover,
+  &:focus-visible {
+    background: var(--btn-primary-bg-hover);
+    color: var(--btn-primary-text-hover);
+    outline: 2px solid var(--btn-primary-bg-hover);
+    outline-offset: 2px;
+  }
+}
+
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: var(--btn-padding-y) var(--btn-padding-x);
+  background: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  border: 2px solid var(--btn-secondary-border);
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  border-radius: var(--btn-radius);
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--btn-secondary-border-hover);
+    background: var(--btn-secondary-bg-hover);
+    color: var(--btn-secondary-text-hover);
   }
 }
 
@@ -234,43 +319,20 @@
   }
 
   .verdionHero__ctaPrimary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.375rem;
-    background-color: var(--wp--preset--color--brand);
-    color: #fff;
-    padding: 0.875rem 1.75rem;
-    border-radius: 0.375rem;
-    font-weight: 600;
-    font-size: 0.9375rem;
-    text-decoration: none;
-    transition: background-color 0.2s ease;
-
-    &:hover {
-      background-color: var(--wp--preset--color--brand-light);
-      color: #fff;
-    }
+    --btn-primary-bg-hover: var(
+      --color-brand-light,
+      var(--wp--preset--color--brand-light, #4caf50)
+    );
+    --btn-primary-text-hover: #fff;
   }
 
-  .verdionHero__ctaSecondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.375rem;
-    border: 2px solid rgba(255, 255, 255, 0.6);
-    color: #fff;
-    padding: 0.875rem 1.75rem;
-    border-radius: 0.375rem;
-    font-weight: 600;
-    font-size: 0.9375rem;
-    text-decoration: none;
-    transition:
-      border-color 0.2s ease,
-      background-color 0.2s ease;
-
-    &:hover {
-      border-color: #fff;
-      background-color: rgba(255, 255, 255, 0.1);
-    }
+  /* Dark-context override: any .ctaSecondary inside the hero gets white styling */
+  .verdionHero .ctaSecondary {
+    --btn-secondary-border: rgba(255, 255, 255, 0.6);
+    --btn-secondary-text: #fff;
+    --btn-secondary-bg-hover: rgba(255, 255, 255, 0.1);
+    --btn-secondary-border-hover: #fff;
+    --btn-secondary-text-hover: #fff;
   }
 
   .verdionHero__badges {
@@ -335,6 +397,231 @@
 }
 
 /* ==========================================================================
+   About Split block
+   ========================================================================== */
+@layer base {
+  .verdionAboutSplit {
+    background-color: #051109;
+    color: #fff;
+    padding-block: 3rem;
+
+    @media (min-width: 768px) {
+      padding-block: 4rem 4.5rem;
+    }
+  }
+
+  .verdionAboutSplit__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+
+    @media (min-width: 768px) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 2.5rem 3rem;
+    }
+  }
+
+  .verdionAboutSplit__copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .verdionAboutSplit__subtitle {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--wp--preset--color--accent);
+    line-height: 1.4;
+  }
+
+  .verdionAboutSplit__title {
+    margin: 0;
+    font-size: clamp(1.5rem, 1.25rem + 2vw, 2.25rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1.15;
+    color: #fff;
+  }
+
+  .verdionAboutSplit__body {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.92);
+    max-width: 36rem;
+
+    p {
+      margin: 0 0 0.75em;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .verdionAboutSplit__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-top: 0.5rem;
+    border: 2px solid rgba(255, 255, 255, 0.65);
+    color: #fff;
+    padding: 0.875rem 1.75rem;
+    border-radius: 0.375rem;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease;
+
+    &:hover {
+      border-color: #fff;
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+  }
+
+  .verdionAboutSplit__media {
+    min-width: 0;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+  }
+
+  .verdionAboutSplit__mediaImg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .verdionAboutSplit--editor {
+    .verdionAboutSplit__subtitle--placeholder {
+      opacity: 0.45;
+      font-style: italic;
+      text-transform: none;
+      letter-spacing: normal;
+    }
+
+    .verdionAboutSplit__cta--fake {
+      pointer-events: none;
+    }
+
+    .verdionAboutSplit__mediaPlaceholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 12rem;
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      border: 2px dashed rgba(255, 255, 255, 0.25);
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 0.875rem;
+      text-align: center;
+    }
+
+    .verdionAboutSplit__media {
+      aspect-ratio: 16 / 10;
+    }
+  }
+}
+
+/* ==========================================================================
+   Realizacje section block
+   ========================================================================== */
+@layer base {
+  .verdionRealizacje {
+    background-color: var(--color-primary-50, #f0f9f4);
+    padding-block: 3rem;
+
+    @media (min-width: 768px) {
+      padding-block: 5rem;
+    }
+  }
+
+  .verdionRealizacje__header {
+    text-align: center;
+    margin-bottom: 2rem;
+
+    @media (min-width: 768px) {
+      margin-bottom: 3rem;
+    }
+  }
+
+  .verdionRealizacje__subtitle {
+    margin: 0 0 0.75rem;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--wp--preset--color--accent);
+    line-height: 1.4;
+  }
+
+  .verdionRealizacje__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--color-primary, #051109);
+    text-align: center;
+  }
+
+  .verdionRealizacje__desc {
+    margin: 0.75rem auto 0;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    color: rgba(5, 17, 9, 0.65);
+    max-width: 50ch;
+    text-align: center;
+  }
+
+  .verdionRealizacje__ctaWrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5rem;
+  }
+
+  .verdionRealizacje__cta {
+    padding: 0.875rem 1.75rem;
+    font-family: var(--font-sans);
+
+    &:hover {
+      background: var(
+        --color-brand-light,
+        var(--wp--preset--color--brand-light)
+      );
+      color: #fff;
+    }
+  }
+
+  .verdionRealizacje--editor {
+    .verdionRealizacje__subtitle--placeholder {
+      opacity: 0.45;
+      font-style: italic;
+      text-transform: none;
+      letter-spacing: normal;
+    }
+  }
+}
+
+/* ==========================================================================
    Layout helpers
    ========================================================================== */
 @layer base {
@@ -342,7 +629,101 @@
     width: 100%;
     overflow-x: hidden;
   }
+}
 
+/* ==========================================================================
+   Realizacje archive
+   ========================================================================== */
+@layer base {
+  /* Archive header */
+  .archiveHeader {
+    text-align: center;
+    padding-block: 2rem 1.5rem;
+    border-bottom: 1px solid var(--color-primary-100);
+
+    @media (min-width: 768px) {
+      padding-block: 3.5rem 2rem;
+    }
+  }
+
+  .archiveHeader__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 700;
+    color: var(--color-primary-900);
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+  }
+
+  .archiveHeader__desc {
+    font-family: var(--font-sans);
+    color: var(--color-primary-500);
+    font-size: 1rem;
+    max-width: 48ch;
+    margin-inline: auto;
+    line-height: 1.6;
+
+    @media (min-width: 768px) {
+      font-size: 1.125rem;
+    }
+  }
+
+  /* Filter nav */
+  .archiveFilter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-block: 1.5rem;
+
+    @media (min-width: 768px) {
+      gap: 0.625rem;
+      margin-block: 2rem;
+    }
+  }
+
+  .archiveFilter__btn {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1;
+    padding: 0.4375rem 1rem;
+    border-radius: 9999px;
+    border: 1.5px solid var(--color-primary-200);
+    background-color: transparent;
+    color: var(--color-primary-700);
+    cursor: pointer;
+    text-decoration: none;
+    transition:
+      border-color 0.2s var(--ease-soft),
+      color 0.2s var(--ease-soft),
+      background-color 0.2s var(--ease-soft);
+
+    &:hover {
+      border-color: var(--color-brand);
+      color: var(--color-brand);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-brand);
+      outline-offset: 2px;
+    }
+  }
+
+  .archiveFilter__btn--active {
+    background-color: var(--color-brand);
+    border-color: var(--color-brand);
+    color: #fff;
+
+    &:hover {
+      background-color: var(--color-brand-600);
+      border-color: var(--color-brand-600);
+      color: #fff;
+    }
+  }
+
+  /* Grid */
   .realizacjeGrid {
     display: grid;
     grid-template-columns: 1fr;
@@ -357,6 +738,57 @@
     }
   }
 
+  /* Empty state */
+  .archiveEmpty {
+    text-align: center;
+    color: var(--color-primary-400);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    padding-block: 3rem;
+  }
+
+  /* Pagination */
+  .wp-pagenavi,
+  .page-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-block: 2.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+  }
+
+  /* Card */
+  .realizacjaCard {
+    border-radius: 0.75rem;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow:
+      0 1px 4px rgb(0 0 0 / 0.06),
+      0 1px 2px rgb(0 0 0 / 0.04);
+    display: flex;
+    flex-direction: column;
+    transition:
+      transform 0.25s var(--ease-soft),
+      box-shadow 0.25s var(--ease-soft);
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow:
+        0 8px 24px rgb(0 0 0 / 0.1),
+        0 2px 6px rgb(0 0 0 / 0.06);
+    }
+  }
+
+  .realizacjaCard__link {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    text-decoration: none;
+    color: inherit;
+  }
+
   .realizacjaCard__thumb {
     position: relative;
     overflow: hidden;
@@ -369,13 +801,273 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.35s var(--ease-soft);
+
+    .realizacjaCard:hover & {
+      transform: scale(1.04);
+    }
   }
 
-  .archiveFilter {
+  .realizacjaCard__badge {
+    position: absolute;
+    bottom: 0.625rem;
+    left: 0.625rem;
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1;
+    padding: 0.3rem 0.6rem;
+    border-radius: 9999px;
+    background-color: var(--color-accent, var(--color-brand));
+    color: #fff;
+    letter-spacing: 0.02em;
+  }
+
+  .realizacjaCard__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1rem;
+
+    @media (min-width: 768px) {
+      padding: 1.25rem 1.5rem;
+    }
+  }
+
+  .realizacjaCard__title {
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    font-weight: 700;
+    color: var(--color-primary-900);
+    margin-bottom: 0.375rem;
+    line-height: 1.25;
+  }
+
+  .realizacjaCard__desc {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    color: var(--color-primary-500);
+    line-height: 1.55;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex: 1;
+  }
+
+  .realizacjaCard__meta {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.25rem 0.75rem;
+    margin-top: 0.875rem;
+    padding-top: 0.75rem;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: var(--color-primary-400);
+  }
+
+  .realizacjaCard__metaItem {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+
+    & + .realizacjaCard__metaItem::before {
+      content: '·';
+      color: var(--color-primary-300);
+    }
+  }
+}
+
+/* ==========================================================================
+   Realizacje single
+   ========================================================================== */
+@layer base {
+  /* Hero */
+  .realizacja__hero {
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--color-primary-100);
+    max-height: 60vh;
+
+    @media (min-width: 768px) {
+      height: clamp(360px, 50vw, 600px);
+    }
+  }
+
+  .realizacja__heroImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Body wrapper */
+  .realizacja__body {
+    padding-block: 2rem;
+
+    @media (min-width: 768px) {
+      padding-block: 3.5rem;
+    }
+  }
+
+  /* Header */
+  .realizacja__header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-primary-100);
+
+    @media (min-width: 768px) {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+    }
+  }
+
+  .realizacja__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 700;
+    color: var(--color-primary-900);
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+  }
+
+  .realizacja__lead {
+    font-family: var(--font-sans);
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--color-primary-500);
+    line-height: 1.65;
+    max-width: 60ch;
+  }
+
+  /* Meta */
+  .realizacja__meta {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    border-top: 1px solid var(--color-primary-100);
+    padding-top: 1.5rem;
+    margin-bottom: 2rem;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem 2rem;
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .realizacja__metaItem {
+    & dt {
+      font-family: var(--font-sans);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-primary-400);
+      margin-bottom: 0.25rem;
+    }
+
+    & dd {
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--color-primary-800);
+      margin: 0;
+    }
+  }
+
+  .realizacja__tag {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    background-color: var(--color-brand-50);
+    color: var(--color-brand);
+    text-decoration: none;
+    transition: background-color 0.2s var(--ease-soft);
+
+    &:hover {
+      background-color: var(--color-brand-100);
+      text-decoration: underline;
+    }
+  }
+
+  /* Content */
+  .realizacja__content {
+    max-width: 70ch;
     margin-block: 2rem;
+    font-family: var(--font-sans);
+  }
+
+  /* Gallery */
+  .realizacja__gallery {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-block: 2.5rem;
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+  }
+
+  .realizacja__galleryItem {
+    overflow: hidden;
+    border-radius: 0.625rem;
+    aspect-ratio: 4 / 3;
+    margin: 0;
+    background-color: var(--color-primary-100);
+  }
+
+  .realizacja__galleryImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s var(--ease-soft);
+
+    &:hover {
+      transform: scale(1.04);
+    }
+  }
+
+  /* Nav */
+  .realizacja__nav {
+    margin-block: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-primary-100);
+  }
+
+  .realizacja__navBack {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-brand);
+    text-decoration: none;
+    transition: color 0.2s var(--ease-soft);
+
+    &:hover {
+      color: var(--color-brand-700);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-brand);
+      outline-offset: 2px;
+    }
   }
 }
 
@@ -401,5 +1093,2040 @@
 
   @media (min-width: 768px) {
     padding-inline: 2rem;
+  }
+}
+
+/* ==========================================================================
+   Oferta section block
+   ========================================================================== */
+@layer base {
+  .verdionOferta {
+    background-color: var(--color-neutral-50, #f8f8f8);
+    padding-block: 3rem;
+
+    @media (min-width: 768px) {
+      padding-block: 5rem;
+    }
+  }
+
+  .verdionOferta__header {
+    text-align: center;
+    margin-bottom: 2rem;
+
+    @media (min-width: 768px) {
+      margin-bottom: 3rem;
+    }
+  }
+
+  .verdionOferta__title {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-neutral-900, #111);
+  }
+
+  .verdionOferta__subtitle {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: var(--color-neutral-600, #555);
+  }
+
+  .verdionOferta__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .verdionOferta__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.75rem;
+    padding: 2rem 1.5rem;
+    background: #fff;
+    border-radius: 0.75rem;
+    box-shadow:
+      0 1px 3px rgb(0 0 0 / 0.06),
+      0 1px 2px rgb(0 0 0 / 0.04);
+    transition:
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+    }
+
+    &--linked {
+      text-decoration: none;
+      cursor: pointer;
+
+      &:hover {
+        box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+        transform: translateY(-2px);
+
+        & .verdionOferta__cardLink {
+          gap: 0.625rem;
+          color: var(--color-brand-700, #256528);
+        }
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--color-brand, #2e7d32);
+        outline-offset: 3px;
+      }
+    }
+  }
+
+  .verdionOferta__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    color: var(--color-brand, #3a7d44);
+
+    & svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .verdionOferta__iconPlaceholder {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background: var(--color-primary-100, #d1eedd);
+  }
+
+  .verdionOferta__cardTitle {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-neutral-900, #111);
+  }
+
+  .verdionOferta__cardDesc {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-neutral-600, #555);
+    flex: 1;
+  }
+
+  .verdionOferta__cardLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-top: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-brand, #3a7d44);
+    text-decoration: none;
+    transition:
+      color 0.2s ease,
+      gap 0.2s ease;
+
+    &:hover {
+      color: var(--color-brand-700, #2d6235);
+      gap: 0.625rem;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-brand, #3a7d44);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+  }
+}
+
+/* ============================================================
+   verdionHowWeWorks
+   ============================================================ */
+.verdionHowWeWorks {
+  padding-block: 5rem;
+
+  & .verdionHowWeWorks__header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  & .verdionHowWeWorks__subtitle {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-brand, #3a7d44);
+    margin: 0 0 0.75rem;
+  }
+
+  & .verdionHowWeWorks__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    color: var(--color-neutral-900, #111);
+    margin: 0;
+    line-height: 1.15;
+  }
+
+  & .verdionHowWeWorks__steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  & .verdionHowWeWorks__step {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 1.25rem;
+    row-gap: 0.25rem;
+    position: relative;
+    padding-bottom: 2.5rem;
+
+    /* vertical line between steps on mobile */
+    &:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 1.375rem;
+      top: 4rem;
+      bottom: 1rem;
+      width: 1px;
+      background: var(--color-border);
+    }
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+
+  & .verdionHowWeWorks__stepCircle {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--color-brand, #3a7d44);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    z-index: 1;
+    position: relative;
+  }
+
+  & .verdionHowWeWorks__stepNumber {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  & .verdionHowWeWorks__stepTitle {
+    grid-column: 2;
+    grid-row: 1;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-neutral-900, #111);
+    margin: 0;
+    padding-top: 0.5rem;
+  }
+
+  & .verdionHowWeWorks__stepDesc {
+    grid-column: 2;
+    grid-row: 2;
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-neutral-600, #555);
+    margin: 0;
+  }
+
+  /* DESKTOP: horizontal layout with connector lines */
+  @media (min-width: 768px) {
+    & .verdionHowWeWorks__steps {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 0;
+    }
+
+    & .verdionHowWeWorks__step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding-bottom: 0;
+      position: relative;
+
+      &:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        top: 1.75rem;
+        left: calc(50% + 3.75rem);
+        right: calc(-50% + 3.75rem);
+        bottom: auto;
+        width: auto;
+        height: 0;
+        background: none;
+        border-top: 1px solid var(--color-border);
+      }
+    }
+
+    & .verdionHowWeWorks__stepCircle {
+      width: 3.5rem;
+      height: 3.5rem;
+      margin-bottom: 1.25rem;
+      grid-column: unset;
+      grid-row: unset;
+    }
+
+    & .verdionHowWeWorks__stepTitle {
+      grid-column: unset;
+      grid-row: unset;
+      padding-top: 0;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    & .verdionHowWeWorks__stepDesc {
+      grid-column: unset;
+      grid-row: unset;
+      text-align: center;
+      font-size: 0.875rem;
+    }
+  }
+}
+
+/* ==========================================================================
+   Verdion Footer Block
+   ========================================================================== */
+
+.verdionFooter {
+  background-color: var(--color-primary, #0f2d1e);
+  color: #e0e0e0;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+
+  /* ── Top section ─────────────────────────────────────────────────────── */
+  & .verdionFooter__top {
+    padding: 3rem 1.25rem 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2rem;
+      padding: 4rem 2.5rem 3rem;
+    }
+
+    @media (min-width: 1024px) {
+      padding: 4.5rem 4rem 3.5rem;
+    }
+  }
+
+  /* ── Brand column ────────────────────────────────────────────────────── */
+  & .verdionFooter__brand {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  & .verdionFooter__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    text-decoration: none;
+
+    & svg,
+    & img {
+      width: 2.25rem;
+      height: 2.25rem;
+      flex-shrink: 0;
+    }
+  }
+
+  & .verdionFooter__logoText {
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #ffffff;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  & .verdionFooter__tagline {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.65;
+    max-width: 22ch;
+    margin: 0;
+  }
+
+  /* ── Generic nav column ──────────────────────────────────────────────── */
+  & .verdionFooter__col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+
+  & .verdionFooter__colTitle {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent, #8bc34a);
+    margin: 0 0 0.25rem;
+    line-height: 1;
+  }
+
+  /* ── Navigation list ─────────────────────────────────────────────────── */
+  & .verdionFooter__nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    & li {
+      margin: 0;
+      padding: 0;
+    }
+
+    & a {
+      color: rgba(255, 255, 255, 0.75);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      transition:
+        color 0.2s ease,
+        padding-left 0.2s ease;
+      display: inline-block;
+
+      &:hover,
+      &:focus-visible {
+        color: #ffffff;
+        text-underline-offset: 3px;
+        padding-left: 0.25rem;
+        outline: 2px solid var(--color-accent, #8bc34a);
+        outline-offset: 2px;
+        border-radius: 2px;
+      }
+    }
+  }
+
+  /* ── Contact list ────────────────────────────────────────────────────── */
+  & .verdionFooter__contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  & .verdionFooter__contactItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+
+    & a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover,
+      &:focus-visible {
+        color: #ffffff;
+        text-underline-offset: 3px;
+        outline: 2px solid var(--color-accent, #8bc34a);
+        outline-offset: 2px;
+        border-radius: 2px;
+      }
+    }
+  }
+
+  /* ── Inline icon (SVG or <i>) ────────────────────────────────────────── */
+  & .verdionFooter__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 1.125rem;
+    height: 1.125rem;
+    margin-top: 0.125rem; /* optical alignment with first line of text */
+    color: var(--color-accent, #8bc34a);
+
+    & svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  /* ── Social buttons ──────────────────────────────────────────────────── */
+  & .verdionFooter__socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+    margin-top: 0.25rem;
+  }
+
+  & .verdionFooter__socialBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease,
+      transform 0.2s ease;
+
+    & svg {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    &:hover,
+    &:focus-visible {
+      background-color: var(--color-brand, #2e7d32);
+      border-color: var(--color-brand, #2e7d32);
+      color: #ffffff;
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      & {
+        transition:
+          background-color 0.2s ease,
+          border-color 0.2s ease,
+          color 0.2s ease;
+        transform: none !important;
+      }
+    }
+  }
+
+  /* ── Bottom bar ──────────────────────────────────────────────────────── */
+  & .verdionFooter__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.25rem;
+
+    @media (min-width: 768px) {
+      padding: 1.25rem 2.5rem;
+    }
+
+    @media (min-width: 1024px) {
+      padding: 1.25rem 4rem;
+    }
+  }
+
+  & .verdionFooter__bottomInner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+
+    @media (min-width: 640px) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+  }
+
+  & .verdionFooter__copy {
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.45);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  & .verdionFooter__legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  & .verdionFooter__legalLink {
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+
+    &:hover,
+    &:focus-visible {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      outline: 2px solid var(--color-accent, #8bc34a);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+  }
+}
+
+/* ==========================================================================
+   Verdion Header
+   ========================================================================== */
+.verdionHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(15, 45, 30, 0.97);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  transition:
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+  width: 100%;
+
+  &.verdionHeader--transparent {
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+
+  &.verdionHeader--transparent.verdionHeader--scrolled,
+  &.verdionHeader--transparent.verdionHeader--open {
+    background: rgba(15, 45, 30, 0.97);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(8px);
+  }
+
+  & .verdionHeader__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4rem;
+    gap: 1rem;
+  }
+
+  /* Logo */
+  & .verdionHeader__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  & .verdionHeader__logoMark {
+    display: block;
+    width: 32px;
+    height: 32px;
+  }
+
+  & .verdionHeader__logoText {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #ffffff;
+    line-height: 1;
+  }
+
+  /* Desktop nav — hidden on mobile */
+  & .verdionHeader__nav {
+    display: none;
+    flex: 1;
+    justify-content: center;
+
+    @media (min-width: 1024px) {
+      display: flex;
+    }
+  }
+
+  & .verdionHeader__menu {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    & li {
+      & a {
+        display: block;
+        padding: 0.5rem 0.875rem;
+        font-size: 0.9375rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.88);
+        text-decoration: none;
+        border-radius: 4px;
+        transition:
+          color 0.2s ease,
+          background 0.2s ease;
+        letter-spacing: 0.01em;
+
+        &:hover,
+        &:focus-visible {
+          color: #ffffff;
+          background: rgba(255, 255, 255, 0.08);
+          outline: 2px solid var(--color-accent, #8bc34a);
+          outline-offset: 2px;
+        }
+      }
+
+      &.current-menu-item > a,
+      &.current_page_item > a {
+        color: var(--color-accent, #8bc34a);
+      }
+    }
+  }
+
+  /* CTA button */
+  & .verdionHeader__cta {
+    display: none;
+
+    @media (min-width: 1024px) {
+      display: inline-flex;
+    }
+  }
+
+  /* Hamburger toggle */
+  & .verdionHeader__toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    flex-shrink: 0;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+
+    @media (min-width: 1024px) {
+      display: none;
+    }
+
+    &:hover,
+    &:focus-visible {
+      background: rgba(255, 255, 255, 0.1);
+      outline: 2px solid var(--color-accent, #8bc34a);
+      outline-offset: 2px;
+    }
+  }
+
+  & .verdionHeader__bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 2px;
+    transform-origin: center;
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease,
+      width 0.3s ease;
+  }
+
+  /* Hamburger → X animation */
+  &.verdionHeader--open {
+    & .verdionHeader__bar:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    & .verdionHeader__bar:nth-child(2) {
+      opacity: 0;
+      width: 0;
+    }
+    & .verdionHeader__bar:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+  }
+
+  /* Mobile drawer */
+  & .verdionHeader__drawer {
+    max-height: 0;
+    overflow: hidden;
+    background: rgba(15, 45, 30, 0.98);
+    transition:
+      max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      padding 0.4s ease;
+
+    @media (min-width: 1024px) {
+      display: none;
+    }
+  }
+
+  &.verdionHeader--open .verdionHeader__drawer {
+    max-height: 80vh;
+    padding-bottom: 1.5rem;
+  }
+
+  & .verdionHeader__drawerNav {
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem 0;
+  }
+
+  & .verdionHeader__drawerMenu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    & li {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+
+      & a {
+        display: block;
+        padding: 0.875rem 1.25rem;
+        font-size: 1rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.88);
+        text-decoration: none;
+        transition:
+          color 0.2s ease,
+          padding-left 0.2s ease;
+
+        &:hover,
+        &:focus-visible {
+          color: var(--color-accent, #8bc34a);
+          padding-left: 1.75rem;
+          outline: none;
+        }
+      }
+
+      &.current-menu-item > a,
+      &.current_page_item > a {
+        color: var(--color-accent, #8bc34a);
+      }
+    }
+  }
+
+  & .verdionHeader__drawerCta {
+    display: inline-flex;
+    align-items: center;
+    margin: 1rem 1.25rem 0;
+    padding: 0.75rem 1.5rem;
+    background: var(--color-brand, #2e7d32);
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 6px;
+    align-self: flex-start;
+    transition: background 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      background: var(--color-accent, #8bc34a);
+      color: var(--color-primary, #0f2d1e);
+      outline: 2px solid var(--color-accent, #8bc34a);
+      outline-offset: 2px;
+    }
+  }
+}
+
+/* ==========================================================================
+   CTA Banner block
+   ========================================================================== */
+@layer base {
+  .verdionCtaBanner {
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0a1e0f;
+
+    & .verdionCtaBanner__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          rgba(10, 30, 15, 0.55),
+          rgba(10, 30, 15, 0.65)
+        );
+      }
+
+      & .verdionCtaBanner__bgImg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+    }
+
+    & .verdionCtaBanner__inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding-block: 3rem;
+      gap: 0;
+    }
+
+    & .verdionCtaBanner__title {
+      color: #fff;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      margin: 0 0 0.75rem;
+      line-height: 1.2;
+    }
+
+    & .verdionCtaBanner__subtitle {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 0 0 1.75rem;
+      max-width: 36rem;
+    }
+
+    & .verdionCtaBanner__cta {
+      font-size: 0.875rem;
+    }
+  }
+}
+
+/* Offset for fixed header */
+.wp-site-blocks > *:first-child:not(.verdionHeader),
+.entry-content > *:first-child:not(.verdionHeader) {
+  scroll-margin-top: 4rem;
+}
+
+/* ==========================================================================
+   FAQ block
+   ========================================================================== */
+@layer base {
+  .verdionFaq {
+    background: #fff;
+    padding-block: 3rem;
+
+    @media (min-width: 768px) {
+      padding-block: 5rem;
+    }
+
+    & .verdionFaq__inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    & .verdionFaq__title {
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-neutral-900, #111);
+      margin: 0 0 2.5rem;
+
+      @media (min-width: 768px) {
+        margin-bottom: 3rem;
+      }
+    }
+
+    & .verdionFaq__list {
+      width: 100%;
+      max-width: 48rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    & .verdionFaq__item {
+      border: 1px solid var(--color-border);
+      border-radius: 0.75rem;
+      padding: 1.25rem 1.5rem;
+      background: #fff;
+
+      &:hover {
+        border-color: var(--color-brand, #2e7d32);
+      }
+    }
+
+    & .verdionFaq__question {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-neutral-900, #111);
+      margin-bottom: 0.5rem;
+    }
+
+    & .verdionFaq__answer {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      color: var(--color-neutral-600, #555);
+    }
+  }
+}
+
+/* Admin bar offset — mobile: 46px, desktop: 32px */
+.admin-bar .verdionHeader {
+  top: 46px;
+
+  @media (min-width: 783px) {
+    top: 32px;
+  }
+}
+
+/* ==========================================================================
+   Verdion Offer Details block
+   ========================================================================== */
+@layer base {
+  .verdionOfferDetails {
+    /* ── Shared section rhythm ─────────────────────────────────────────── */
+    & > section {
+      padding-block: 3rem;
+
+      @media (min-width: 768px) {
+        padding-block: 5rem;
+      }
+    }
+
+    /* ── Section title (h2) ───────────────────────────────────────────── */
+    & .verdionOfferDetails__sectionTitle {
+      text-align: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.375rem, 3vw, 2rem);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-neutral-900, #111);
+      margin-block: 0 2.5rem;
+
+      &::after {
+        content: '';
+        display: block;
+        width: 3rem;
+        height: 3px;
+        background: var(--color-brand, #3a7d44);
+        margin: 0.75rem auto 0;
+        border-radius: 2px;
+      }
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       1. Split Hero
+    ══════════════════════════════════════════════════════════════════ */
+    & .verdionOfferDetails__hero {
+      background: #fff;
+    }
+
+    & .verdionOfferDetails__heroInner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: center;
+
+      @media (min-width: 768px) {
+        grid-template-columns: 1fr 1fr;
+        gap: 3.5rem;
+      }
+    }
+
+    & .verdionOfferDetails__heroContent {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+    }
+
+    & .verdionOfferDetails__badge {
+      display: inline-block;
+      background: var(--color-brand, #3a7d44);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.875rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    & .verdionOfferDetails__title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      line-height: 1.15;
+      color: var(--color-neutral-900, #111);
+      margin: 0 0 1rem;
+    }
+
+    & .verdionOfferDetails__intro {
+      font-family: var(--font-sans);
+      font-size: 1.0625rem;
+      line-height: 1.7;
+      color: var(--color-neutral-600, #555);
+      margin: 0 0 1.75rem;
+      max-width: 38rem;
+    }
+
+    & .verdionOfferDetails__cta {
+      margin-top: 0.25rem;
+    }
+
+    & .verdionOfferDetails__heroImage {
+      border-radius: 1rem;
+      overflow: hidden;
+      order: -1;
+
+      @media (min-width: 768px) {
+        order: 0;
+      }
+
+      & .verdionOfferDetails__heroImg {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+      }
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       2. Benefits
+    ══════════════════════════════════════════════════════════════════ */
+    & .verdionOfferDetails__benefits {
+      background: var(--color-neutral-50, #f9fafb);
+    }
+
+    & .verdionOfferDetails__benefitsGrid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+
+      @media (min-width: 640px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @media (min-width: 1024px) {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    & .verdionOfferDetails__benefitCard {
+      background: #fff;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    & .verdionOfferDetails__benefitIcon {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      color: var(--color-brand, #3a7d44);
+      margin-bottom: 0.5rem;
+
+      & svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      & img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    & .verdionOfferDetails__benefitTitle {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-neutral-900, #111);
+    }
+
+    & .verdionOfferDetails__benefitDesc {
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--color-neutral-600, #555);
+      margin: 0;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       3. Process
+    ══════════════════════════════════════════════════════════════════ */
+    & .verdionOfferDetails__process {
+      background: #fff;
+    }
+
+    & .verdionOfferDetails__steps {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
+      @media (min-width: 768px) {
+        flex-direction: row;
+        gap: 2rem;
+      }
+    }
+
+    & .verdionOfferDetails__step {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+
+      @media (min-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+        flex: 1;
+      }
+    }
+
+    & .verdionOfferDetails__stepNum {
+      flex-shrink: 0;
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 50%;
+      background: var(--color-brand, #3a7d44);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.125rem;
+      font-family: var(--font-display);
+    }
+
+    & .verdionOfferDetails__stepBody {
+      display: flex;
+      flex-direction: column;
+      gap: 0.375rem;
+    }
+
+    & .verdionOfferDetails__stepTitle {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-neutral-900, #111);
+    }
+
+    & .verdionOfferDetails__stepDesc {
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--color-neutral-600, #555);
+      margin: 0;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       4. Gallery
+    ══════════════════════════════════════════════════════════════════ */
+    & .verdionOfferDetails__gallery {
+      background: var(--color-neutral-50, #f9fafb);
+    }
+
+    & .verdionOfferDetails__galleryGrid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+
+      @media (min-width: 1024px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    & .verdionOfferDetails__galleryImg {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 0.625rem;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════
+       5. FAQ
+    ══════════════════════════════════════════════════════════════════ */
+    & .verdionOfferDetails__faq {
+      background: #fff;
+    }
+
+    & .verdionOfferDetails__faqList {
+      display: flex;
+      flex-direction: column;
+      gap: 0.625rem;
+      max-width: 48rem;
+      margin-inline: auto;
+    }
+
+    & .verdionOfferDetails__faqItem {
+      border: 1px solid var(--color-border);
+      border-radius: 0.625rem;
+      overflow: hidden;
+
+      &[open] {
+        & .verdionOfferDetails__faqQ {
+          color: var(--color-brand, #3a7d44);
+
+          &::after {
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
+
+    & .verdionOfferDetails__faqQ {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-neutral-900, #111);
+      cursor: pointer;
+      list-style: none;
+      transition: color 0.2s ease;
+
+      &::-webkit-details-marker {
+        display: none;
+      }
+
+      &::after {
+        content: '';
+        flex-shrink: 0;
+        width: 1.25rem;
+        height: 1.25rem;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%233a7d44'%3E%3Cpath fill-rule='evenodd' d='M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z' clip-rule='evenodd'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-size: contain;
+        transition: transform 0.25s ease;
+      }
+
+      &:hover {
+        color: var(--color-brand, #3a7d44);
+      }
+    }
+
+    & .verdionOfferDetails__faqA {
+      padding: 0 1.25rem 1rem;
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      line-height: 1.7;
+      color: var(--color-neutral-600, #555);
+
+      & p {
+        margin: 0;
+      }
+    }
+  }
+}
+
+/* ==========================================================================
+   Verdion Contact block
+   ========================================================================== */
+@layer base {
+  .verdionContact {
+    /* ── Header ──────────────────────────────────────────────────────────── */
+    & .verdionContact__header {
+      position: relative;
+      background: #0f2d1e;
+      padding-block: 5rem 7.5rem;
+      text-align: center;
+      overflow: hidden;
+
+      @media (min-width: 768px) {
+        padding-block: 6rem 9rem;
+      }
+    }
+
+    & .verdionContact__subtitle {
+      display: block;
+      margin: 0 0 0.875rem;
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #8bc34a;
+      line-height: 1.4;
+    }
+
+    & .verdionContact__title {
+      margin: 0 0 1rem;
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+
+      @media (min-width: 768px) {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+      }
+    }
+
+    & .verdionContact__intro {
+      margin: 0 auto;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 600px;
+
+      @media (min-width: 768px) {
+        font-size: 1.0625rem;
+      }
+    }
+
+    /* SVG wave at the bottom of the header, transitioning to #f8fafc */
+    & .verdionContact__headerDeco {
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      line-height: 0;
+
+      & svg {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    /* ── Body ────────────────────────────────────────────────────────────── */
+    & .verdionContact__body {
+      background: #f8fafc;
+      padding-block: 3.75rem;
+
+      @media (min-width: 768px) {
+        padding-block: 5rem;
+      }
+    }
+
+    & .verdionContact__bodyInner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+
+      @media (min-width: 768px) {
+        grid-template-columns: 1fr 1.2fr;
+        gap: 3rem;
+        align-items: start;
+      }
+    }
+
+    /* ── Info column (left) ──────────────────────────────────────────────── */
+    & .verdionContact__info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    & .verdionContact__infoCard {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.75rem;
+      padding: 1.25rem 1.5rem;
+      transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+
+      &:hover {
+        border-color: #2e7d32;
+        box-shadow: 0 4px 16px rgba(46, 125, 50, 0.12);
+      }
+    }
+
+    & .verdionContact__infoIcon {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #e8f5e9;
+
+      & svg {
+        width: 24px;
+        height: 24px;
+        color: #2e7d32;
+        fill: currentColor;
+      }
+    }
+
+    & .verdionContact__infoContent {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    & .verdionContact__infoLabel {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 0.25rem;
+    }
+
+    & .verdionContact__infoValue {
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: #111827;
+      line-height: 1.55;
+
+      & a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: #2e7d32;
+          text-decoration: underline;
+          text-underline-offset: 2px;
+        }
+      }
+    }
+
+    /* ── Form wrap (right column) ────────────────────────────────────────── */
+    & .verdionContact__formWrap {
+      background: #ffffff;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+
+      @media (min-width: 768px) {
+        padding: 2.5rem;
+      }
+    }
+
+    & .verdionContact__formTitle {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #0f2d1e;
+      margin: 0 0 1.5rem;
+      line-height: 1.2;
+    }
+
+    /* WPForms field overrides */
+    & .verdionContact__formWrap .wpforms-form {
+      & .wpforms-field {
+        margin-bottom: 1.25rem;
+      }
+
+      & .wpforms-field label {
+        font-family: var(--font-sans);
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #374151;
+        display: block;
+        margin-bottom: 0.375rem;
+      }
+
+      & .wpforms-field input,
+      & .wpforms-field textarea,
+      & .wpforms-field select {
+        display: block;
+        width: 100%;
+        font-family: var(--font-sans);
+        font-size: 0.9375rem;
+        color: #111827;
+        background: #ffffff;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        padding: 0.75rem 1rem;
+        line-height: 1.5;
+        transition:
+          border-color 0.2s ease,
+          outline-color 0.2s ease;
+        appearance: none;
+
+        &:focus,
+        &:focus-visible {
+          outline: 2px solid #2e7d32;
+          outline-offset: 2px;
+          border-color: #2e7d32;
+        }
+      }
+
+      & .wpforms-field textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      & .wpforms-submit-container {
+        margin-top: 1.5rem;
+      }
+
+      & .wpforms-submit,
+      & button[type='submit'] {
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 0.875rem 2rem !important;
+        background: #2e7d32 !important;
+        color: #ffffff !important;
+        font-family: var(--font-sans);
+        font-size: 0.9375rem !important;
+        font-weight: 600 !important;
+        border: none !important;
+        border-radius: 0.375rem !important;
+        cursor: pointer;
+        transition: background 0.2s ease;
+
+        &:hover,
+        &:focus-visible {
+          background: #256528 !important;
+          outline: 2px solid #256528;
+          outline-offset: 2px;
+        }
+
+        &:active {
+          background: #1b4d1f !important;
+        }
+      }
+    }
+
+    /* ── Map ─────────────────────────────────────────────────────────────── */
+    & .verdionContact__map {
+      overflow: hidden;
+      border-top: 3px solid #2e7d32;
+
+      & iframe {
+        display: block;
+        width: 100%;
+        height: 300px;
+        border: none;
+
+        @media (min-width: 768px) {
+          height: 420px;
+        }
+      }
+    }
+  }
+
+  /* ── Editor preview modifier ─────────────────────────────────────────── */
+  .verdionContact--editor {
+    & .verdionContact__header {
+      padding-bottom: 5rem;
+    }
+
+    & .verdionContact__bodyInner {
+      @media (min-width: 768px) {
+        grid-template-columns: 1fr 1.2fr;
+      }
+    }
+  }
+}
+
+/* ==========================================================================
+   404 Page
+   ========================================================================== */
+.verdion404 {
+  position: relative;
+  overflow: hidden;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  background: #f8fafc;
+  padding-block: 5rem;
+
+  & .verdion404__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+
+    & .verdion404__blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.18;
+    }
+
+    & .verdion404__blob--1 {
+      width: 500px;
+      height: 500px;
+      background: #2e7d32;
+      top: -100px;
+      right: -100px;
+    }
+
+    & .verdion404__blob--2 {
+      width: 400px;
+      height: 400px;
+      background: #8bc34a;
+      bottom: -80px;
+      left: -80px;
+    }
+  }
+
+  & .verdion404__inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.25rem;
+  }
+
+  & .verdion404__number {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  & .verdion404__digit {
+    font-family: var(--font-display);
+    font-size: clamp(6rem, 18vw, 12rem);
+    font-weight: 700;
+    color: #0f2d1e;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  & .verdion404__leaf {
+    display: flex;
+    align-items: center;
+
+    & svg {
+      width: clamp(4rem, 10vw, 7rem);
+      height: auto;
+      animation: verdion404Sway 4s ease-in-out infinite;
+      transform-origin: 50% 0%;
+    }
+  }
+
+  & .verdion404__label {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: #8bc34a;
+    margin: 0;
+  }
+
+  & .verdion404__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 5vw, 3rem);
+    font-weight: 600;
+    color: #0f2d1e;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  & .verdion404__desc {
+    font-size: 1.0625rem;
+    color: #6b7280;
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0;
+  }
+
+  & .verdion404__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+
+  & .verdion404__links {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+    width: 100%;
+    max-width: 480px;
+
+    & .verdion404__linksLabel {
+      font-size: 0.8125rem;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+
+    & nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.25rem 1.5rem;
+
+      & a {
+        font-size: 0.9375rem;
+        color: #2e7d32;
+        font-weight: 500;
+        text-decoration: none;
+        transition: color 0.15s ease;
+
+        &:hover {
+          color: #0f2d1e;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+@keyframes verdion404Sway {
+  0%, 100% { transform: rotate(-4deg); }
+  50%       { transform: rotate(4deg); }
+}
+
+/* ==========================================================================
+   Oferta Archive (/oferty/)
+   ========================================================================== */
+.ofertaArchive__hero {
+  position: relative;
+  background: #0f2d1e;
+  padding-block: 5rem 7rem;
+  overflow: hidden;
+
+  & .ofertaArchive__heroInner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  & .ofertaArchive__heroLabel {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: #8bc34a;
+    margin-bottom: 0.75rem;
+  }
+
+  & .ofertaArchive__heroTitle {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  & .ofertaArchive__heroDesc {
+    font-size: 1.0625rem;
+    color: rgba(255, 255, 255, 0.72);
+    max-width: 560px;
+    margin-inline: auto;
+    line-height: 1.7;
+  }
+
+  & .ofertaArchive__heroDeco {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+
+    & svg {
+      display: block;
+      width: 100%;
+      height: 80px;
+    }
+  }
+}
+
+.ofertaArchive__body {
+  background: #f8fafc;
+  padding-block: 4rem 5rem;
+}
+
+.ofertaArchive__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ── Offer Card ─────────────────────────────────────────────────────────── */
+.ofertaCard {
+  list-style: none;
+
+  & .ofertaCard__inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    text-decoration: none;
+    transition:
+      transform 0.25s var(--ease-soft),
+      box-shadow 0.25s var(--ease-soft);
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(15, 45, 30, 0.14);
+
+      & .ofertaCard__cta {
+        color: #2e7d32;
+        gap: 0.625rem;
+      }
+
+      & .ofertaCard__thumbOverlay {
+        opacity: 0.35;
+      }
+    }
+  }
+
+  & .ofertaCard__thumb {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #0f2d1e;
+
+    &.ofertaCard__thumb--empty {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    & .ofertaCard__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s var(--ease-soft);
+    }
+
+    &:hover .ofertaCard__img {
+      transform: scale(1.04);
+    }
+
+    & .ofertaCard__thumbIcon {
+      width: 3rem;
+      height: 3rem;
+      color: rgba(139, 195, 74, 0.5);
+    }
+
+    & .ofertaCard__thumbOverlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(15, 45, 30, 0.55) 100%);
+      opacity: 0.55;
+      transition: opacity 0.25s ease;
+    }
+  }
+
+  & .ofertaCard__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1.5rem;
+    gap: 0.625rem;
+  }
+
+  & .ofertaCard__title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #0f2d1e;
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  & .ofertaCard__desc {
+    font-size: 0.9375rem;
+    color: #6b7280;
+    line-height: 1.65;
+    flex: 1;
+    margin: 0;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  & .ofertaCard__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #2e7d32;
+    margin-top: 0.5rem;
+    transition: gap 0.2s ease, color 0.2s ease;
   }
 }

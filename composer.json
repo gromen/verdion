@@ -35,7 +35,7 @@
     }
   ],
   "require": {
-    "php": ">=8.3",
+    "php": ">=8.4",
     "composer/installers": "^2.2",
     "oscarotero/env": "^2.1",
     "roots/acorn": "^6.1",
@@ -44,9 +44,11 @@
     "roots/wordpress": "6.9.4",
     "roots/wp-config": "1.0.0",
     "vlucas/phpdotenv": "^5.5",
+    "wp-plugin/safe-svg": "^2.4",
     "wp-theme/twentytwentyfive": "^1.0"
   },
   "require-dev": {
+    "deployer/deployer": "^8.0",
     "laravel/pint": "^1.27",
     "pestphp/pest": "^4.0"
   },

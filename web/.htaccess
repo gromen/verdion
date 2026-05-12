@@ -1,0 +1,26 @@
+# BEGIN Staging Protection (no-op on production)
+SetEnvIfNoCase Host "^staging\." IS_STAGING
+
+<IfModule mod_headers.c>
+    Header set X-Robots-Tag "noindex, nofollow, noarchive" env=IS_STAGING
+</IfModule>
+
+<If "%{HTTP_HOST} =~ /^staging\./">
+    AuthType Basic
+    AuthName "Verdion Staging"
+    AuthUserFile "/home/verdion/public_html/staging/shared/.htpasswd"
+    Require valid-user
+</If>
+# END Staging Protection
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+Options +FollowSymLinks
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress

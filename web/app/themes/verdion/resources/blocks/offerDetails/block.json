@@ -1,0 +1,41 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "verdion/offer-details",
+  "version": "1.0.0",
+  "title": "Verdion Offer Details",
+  "category": "verdion",
+  "icon": "layout",
+  "description": "Pełna strona szczegółów oferty – hero, korzyści, proces, galeria, FAQ.",
+  "textdomain": "verdion",
+  "keywords": ["oferta", "szczegóły", "usługa", "hero"],
+  "supports": {
+    "align": ["full"],
+    "anchor": true,
+    "html": false
+  },
+  "attributes": {
+    "heroImageId":   { "type": "number" },
+    "heroImageUrl":  { "type": "string", "default": "" },
+    "heroImageAlt":  { "type": "string", "default": "" },
+    "category":      { "type": "string", "default": "Usługa" },
+    "title":         { "type": "string", "default": "Systemy nawadniania" },
+    "intro":         { "type": "string", "default": "Projektujemy i montujemy automatyczne systemy nawadniania dopasowane do Twoich potrzeb." },
+    "ctaLabel":      { "type": "string", "default": "Zamów wycenę" },
+    "ctaUrl":        { "type": "string", "default": "#kontakt" },
+    "benefitsTitle": { "type": "string", "default": "Dlaczego warto?" },
+    "benefits": {
+      "type": "array",
+      "default": [
+        { "iconType": "svg", "iconSvg": "", "iconId": null, "iconUrl": "", "title": "Oszczędność wody",       "description": "Inteligentne sterowniki ograniczają zużycie wody nawet o 40%." },
+        { "iconType": "svg", "iconSvg": "", "iconId": null, "iconUrl": "", "title": "Nowoczesna technologia", "description": "Sterowanie przez aplikację mobilną, sensory wilgotności gleby." },
+        { "iconType": "svg", "iconSvg": "", "iconId": null, "iconUrl": "", "title": "Niezawodność",           "description": "Komponenty renomowanych marek z wieloletnią gwarancją." },
+        { "iconType": "svg", "iconSvg": "", "iconId": null, "iconUrl": "", "title": "Zdrowa zieleń",          "description": "Optymalne nawadnianie dla zdrowego trawnika i roślin." }
+      ]
+    },
+    "galleryTitle":  { "type": "string", "default": "Nasze realizacje" },
+    "galleryImages": { "type": "array",  "default": [] }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}

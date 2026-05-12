@@ -306,7 +306,10 @@
           }
         },
         "color": {
-          "text": "var(--wp--preset--color--brand)"
+          "text": "var(--wp--preset--btn-primary-color)"
+        },
+        "typography": {
+          "textDecoration": "none"
         }
       }
     },
