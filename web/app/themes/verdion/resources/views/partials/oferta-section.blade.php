@@ -24,7 +24,18 @@
     @if (!empty($items))
       <div class="verdionOferta__grid">
         @foreach ($items as $item)
-          <div class="verdionOferta__card">
+          @php
+            $hasLink    = !empty($item['linkUrl']);
+            $tag        = $hasLink ? 'a' : 'div';
+            $linkAttrs  = '';
+            if ($hasLink) {
+              $linkAttrs = ' href="' . esc_url($item['linkUrl']) . '"';
+              if (!empty($item['linkTarget'])) {
+                $linkAttrs .= ' target="_blank" rel="noopener noreferrer"';
+              }
+            }
+          @endphp
+          <{{ $tag }} class="verdionOferta__card{{ $hasLink ? ' verdionOferta__card--linked' : '' }}"{!! $linkAttrs !!}>
             <div class="verdionOferta__icon">
               @if (($item['iconType'] ?? '') === 'svg' && !empty($item['iconSvg']))
                 {!! $item['iconSvg'] !!}
@@ -46,14 +57,12 @@
               <p class="verdionOferta__cardDesc">{{ $item['description'] }}</p>
             @endif
 
-            @if (!empty($item['linkUrl']))
-              <a
-                href="{{ esc_url($item['linkUrl']) }}"
-                class="verdionOferta__cardLink"
-                @if (!empty($item['linkTarget'])) target="_blank" rel="noopener noreferrer" @endif
-              >{{ !empty($item['linkLabel']) ? $item['linkLabel'] : 'WIĘCEJ' }} <span aria-hidden="true">→</span></a>
+            @if ($hasLink)
+              <span class="verdionOferta__cardLink" aria-hidden="true">
+                {{ !empty($item['linkLabel']) ? $item['linkLabel'] : 'WIĘCEJ' }} →
+              </span>
             @endif
-          </div>
+          </{{ $tag }}>
         @endforeach
       </div>
     @endif

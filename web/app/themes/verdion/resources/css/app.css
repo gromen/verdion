@@ -185,7 +185,6 @@
     max-width: var(--wp--style--global--wide-size, 90rem);
     margin-inline: auto;
   }
-
 }
 
 /* ==========================================================================
@@ -862,7 +861,6 @@
     gap: 0.25rem 0.75rem;
     margin-top: 0.875rem;
     padding-top: 0.75rem;
-    border-top: 1px solid var(--color-primary-100);
     font-family: var(--font-sans);
     font-size: 0.75rem;
     color: var(--color-primary-400);
@@ -1160,10 +1158,32 @@
     box-shadow:
       0 1px 3px rgb(0 0 0 / 0.06),
       0 1px 2px rgb(0 0 0 / 0.04);
-    transition: box-shadow 0.2s ease;
+    transition:
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
 
     &:hover {
       box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+    }
+
+    &--linked {
+      text-decoration: none;
+      cursor: pointer;
+
+      &:hover {
+        box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+        transform: translateY(-2px);
+
+        & .verdionOferta__cardLink {
+          gap: 0.625rem;
+          color: var(--color-brand-700, #256528);
+        }
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--color-brand, #2e7d32);
+        outline-offset: 3px;
+      }
     }
   }
 
@@ -1986,7 +2006,10 @@
         content: '';
         position: absolute;
         inset: 0;
-        background: linear-gradient(rgba(10, 30, 15, 0.55), rgba(10, 30, 15, 0.65));
+        background: linear-gradient(
+          rgba(10, 30, 15, 0.55),
+          rgba(10, 30, 15, 0.65)
+        );
       }
 
       & .verdionCtaBanner__bgImg {
@@ -2123,7 +2146,6 @@
    ========================================================================== */
 @layer base {
   .verdionOfferDetails {
-
     /* ── Shared section rhythm ─────────────────────────────────────────── */
     & > section {
       padding-block: 3rem;

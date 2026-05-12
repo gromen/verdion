@@ -8,6 +8,7 @@ import {
 import { registerBlockType } from '@wordpress/blocks';
 import {
   Button,
+  ComboboxControl,
   Flex,
   FlexBlock,
   PanelBody,
@@ -16,6 +17,8 @@ import {
   TextControl,
   ToggleControl,
 } from '@wordpress/components';
+import { store as coreStore } from '@wordpress/core-data';
+import { useSelect } from '@wordpress/data';
 
 import metadata from './block.json';
 
@@ -30,6 +33,23 @@ function Edit({ attributes, setAttributes }) {
   const blockProps = useBlockProps({
     className: 'verdionOferta verdionOferta--editor alignfull',
   });
+
+  const ofertaPosts = useSelect((select) => {
+    const records = select(coreStore).getEntityRecords('postType', 'oferta', {
+      per_page: 100,
+      status: 'publish',
+      _fields: 'id,title,link',
+    });
+    return records ?? [];
+  }, []);
+
+  const postOptions = [
+    { label: '— brak powiązania —', value: '' },
+    ...ofertaPosts.map((p) => ({
+      label: p.title?.rendered ?? `#${p.id}`,
+      value: p.link,
+    })),
+  ];
 
   function updateItem(index, patch) {
     setAttributes({
@@ -154,8 +174,19 @@ function Edit({ attributes, setAttributes }) {
                 onChange={(val) => updateItem(index, { description: val })}
               />
 
+              <ComboboxControl
+                label="Powiąż z ofertą"
+                help="Wybierz ofertę z listy lub wpisz URL ręcznie poniżej."
+                value={item.linkUrl ?? ''}
+                options={postOptions}
+                __next40pxDefaultSize={true}
+                __nextHasNoMarginBottom={true}
+                onChange={(val) => updateItem(index, { linkUrl: val ?? '' })}
+                onFilterValueChange={() => {}}
+              />
+
               <TextControl
-                label="URL (WIĘCEJ)"
+                label="URL (ręczny / nadpisuje)"
                 value={item.linkUrl ?? ''}
                 __next40pxDefaultSize={true}
                 __nextHasNoMarginBottom={true}
