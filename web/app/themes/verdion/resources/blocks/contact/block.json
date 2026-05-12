@@ -1,0 +1,36 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "verdion/contact",
+  "version": "1.0.0",
+  "title": "Verdion Kontakt",
+  "category": "verdion",
+  "icon": "email",
+  "description": "Sekcja kontaktowa z danymi firmy, formularzem WPForms i mapą Google.",
+  "textdomain": "verdion",
+  "keywords": ["kontakt", "formularz", "mapa", "contact"],
+  "supports": {
+    "align": ["full"],
+    "anchor": true,
+    "html": false
+  },
+  "attributes": {
+    "subtitle": { "type": "string", "default": "KONTAKT" },
+    "title": { "type": "string", "default": "Skontaktuj się z nami" },
+    "intro": { "type": "string", "default": "Jesteśmy do Twojej dyspozycji — zadzwoń, napisz lub odwiedź nas osobiście." },
+    "phone": { "type": "string", "default": "+48 123 456 789" },
+    "phoneLabel": { "type": "string", "default": "Zadzwoń teraz" },
+    "email": { "type": "string", "default": "kontakt@verdion.pl" },
+    "emailLabel": { "type": "string", "default": "Odpisujemy w 24h" },
+    "address": { "type": "string", "default": "ul. Zielona 12, 30-001 Kraków" },
+    "addressLabel": { "type": "string", "default": "Odwiedź nas" },
+    "hours": { "type": "string", "default": "Pon–Pt: 8:00–17:00\nSob: 9:00–13:00" },
+    "hoursLabel": { "type": "string", "default": "Godziny pracy" },
+    "wpformsId": { "type": "string", "default": "63" },
+    "formTitle": { "type": "string", "default": "Napisz do nas" },
+    "mapEmbedUrl": { "type": "string", "default": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2561.8!2d19.9449!3d50.0647!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zS3Jhaz%3F3!5e0!3m2!1spl!2spl!4v1234567890" },
+    "anchor": { "type": "string", "default": "" }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}
