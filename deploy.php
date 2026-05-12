@@ -57,6 +57,9 @@ task('theme:cache_clear', function () {
         find storage/framework/cache -type f -delete 2>/dev/null || true; \
         find storage/framework/views -type f -delete 2>/dev/null || true; \
         find bootstrap/cache -name "*.php" -delete 2>/dev/null || true');
+    run('cd {{deploy_path}}/current && wp acorn view:clear --path=web/wp --url={{site_url}} 2>/dev/null || true');
+    run('cd {{deploy_path}}/current && wp acorn cache:clear --path=web/wp --url={{site_url}} 2>/dev/null || true');
+    run('cd {{deploy_path}}/current && wp rewrite flush --hard --path=web/wp --url={{site_url}} 2>/dev/null || true');
 });
 
 task('deploy', [
