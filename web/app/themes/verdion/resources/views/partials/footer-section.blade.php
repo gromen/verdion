@@ -1,7 +1,17 @@
 @php
   $tagline        = $attributes['tagline'] ?? 'Automatyczne systemy nawadniania i trawniki.';
   $menuId         = (int)($attributes['quickLinksMenuId'] ?? 0);
-  $ofertaLinks    = $attributes['ofertaLinks'] ?? [];
+  $ofertaLinks = get_posts([
+    'post_type'      => 'oferta',
+    'posts_per_page' => -1,
+    'post_status'    => 'publish',
+    'orderby'        => 'menu_order',
+    'order'          => 'ASC',
+  ]);
+  $ofertaLinks = array_map(fn($p) => [
+    'label' => get_the_title($p),
+    'url'   => get_permalink($p),
+  ], $ofertaLinks);
   $phone          = $attributes['phone'] ?? '';
   $email          = $attributes['email'] ?? '';
   $city           = $attributes['city'] ?? '';
