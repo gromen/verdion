@@ -58,3 +58,6 @@ add_action('load-nav-menus.php', function () {
         'nav-menus'
     );
 });
+
+require_once __DIR__ . '/MaintenanceMode.php';
+add_action('template_redirect', 'App\verdion_maintenance_check', 1);
