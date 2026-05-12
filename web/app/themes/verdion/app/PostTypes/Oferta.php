@@ -30,7 +30,7 @@ class Oferta
             'query_var'          => true,
             'rewrite'            => ['slug' => 'oferty', 'with_front' => false],
             'capability_type'    => 'post',
-            'has_archive'        => false,
+            'has_archive'        => 'oferty',
             'hierarchical'       => false,
             'menu_position'      => 6,
             'menu_icon'          => 'dashicons-store',
