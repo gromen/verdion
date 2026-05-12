@@ -1,0 +1,53 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "verdion/cta-banner",
+  "version": "1.0.0",
+  "title": "Verdion CTA Banner",
+  "category": "verdion",
+  "icon": "megaphone",
+  "description": "Sekcja CTA z tłem, tytułem, podtytułem i przyciskiem.",
+  "textdomain": "verdion",
+  "keywords": ["cta", "banner", "wycena", "call to action"],
+  "supports": {
+    "align": ["full"],
+    "anchor": true,
+    "html": false
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "GOTOWY NA PIĘKNY OGRÓD?"
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Skontaktuj się z nami i otrzymaj darmową wycenę."
+    },
+    "buttonLabel": {
+      "type": "string",
+      "default": "ZAMÓW WYCENĘ"
+    },
+    "buttonUrl": {
+      "type": "string",
+      "default": "#kontakt"
+    },
+    "buttonType": {
+      "type": "string",
+      "default": "primary",
+      "enum": ["primary", "secondary"]
+    },
+    "bgImageId": {
+      "type": "number"
+    },
+    "bgImageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "bgImageAlt": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}
