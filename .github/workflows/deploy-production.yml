@@ -1,11 +1,9 @@
 name: Deploy Production
 
 on:
-  workflow_dispatch:
-    inputs:
-      confirm:
-        description: 'Type "deploy" to confirm production deployment'
-        required: true
+  push:
+    branches:
+      - main
 
 jobs:
   deploy:
@@ -14,12 +12,6 @@ jobs:
     environment: production
 
     steps:
-      - name: Validate confirmation
-        if: ${{ github.event.inputs.confirm != 'deploy' }}
-        run: |
-          echo "Deployment cancelled: confirmation input was not 'deploy'"
-          exit 1
-
       - name: Checkout
         uses: actions/checkout@v4
         with:
