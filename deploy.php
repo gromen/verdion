@@ -27,10 +27,6 @@ task('theme:vendors', function () {
     run('cd {{release_path}}/web/app/themes/verdion && {{bin/composer}} install --no-dev --optimize-autoloader --no-interaction');
 });
 
-task('theme:build_local', function () {
-    runLocally('cd web/app/themes/verdion && rm -f public/hot && npm ci && npm run build && npm run build:blocks');
-})->once();
-
 task('theme:upload_assets', function () {
     $localThemePath = __DIR__ . '/web/app/themes/verdion';
     upload($localThemePath . '/public/', '{{release_path}}/web/app/themes/verdion/public/', [
@@ -57,7 +53,6 @@ task('deploy', [
     'deploy:prepare',
     'deploy:vendors',
     'theme:vendors',
-    'theme:build_local',
     'theme:upload_assets',
     'deploy:publish',
     'theme:cache_clear',

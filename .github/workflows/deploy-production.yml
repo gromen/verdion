@@ -33,6 +33,14 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --optimize-autoloader --no-interaction
 
+      - name: Install theme dependencies
+        working-directory: web/app/themes/verdion
+        run: npm ci
+
+      - name: Build theme assets
+        working-directory: web/app/themes/verdion
+        run: npm run build && npm run build:blocks
+
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
