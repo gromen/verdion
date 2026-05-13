@@ -342,11 +342,12 @@
           href="/"
           aria-label="Verdion — strona główna"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-            <path d="M20 4C14 10 8 14 8 22c0 6.627 5.373 12 12 12s12-5.373 12-12C32 14 26 10 20 4z" fill="#2e7d32"/>
-            <path d="M20 4C20 14 16 20 20 32" stroke="#8bc34a" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          <span class="maintenanceLogo__wordmark">VERDION</span>
+          <img
+            class="maintenanceLogo__image w-44"
+            src="<?= content_url('/uploads/2026/05/logo.png') ?>"
+            alt="Verdion logo"
+            width="200"
+          />
         </a>
 
         <span class="maintenancePage__badge" role="status" aria-live="polite">

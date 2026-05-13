@@ -14,15 +14,6 @@ set('shared_files', ['.env']);
 set('shared_dirs', ['web/app/uploads']);
 set('writable_dirs', ['web/app/uploads']);
 
-host('staging')
-    ->setHostname('verdion.smarthost.pl')
-    ->setPort(5739)
-    ->setRemoteUser('verdion')
-    ->setIdentityFile('~/.ssh/verdion_deploy')
-    ->setDeployPath('/home/verdion/public_html/staging')
-    ->set('branch', 'develop')
-    ->set('site_url', 'https://staging.verdion.pl');
-
 host('production')
     ->setHostname('verdion.smarthost.pl')
     ->setPort(5739)
@@ -62,12 +53,6 @@ task('theme:cache_clear', function () {
     run('cd {{deploy_path}}/current && wp rewrite flush --hard --path=web/wp --url={{site_url}} 2>/dev/null || true');
 });
 
-task('uploads:sync', function () {
-    $stagingUploads = '/home/verdion/public_html/staging/shared/web/app/uploads/';
-    $prodUploads    = '/home/verdion/verdion.pl/shared/web/app/uploads/';
-    run("rsync -a --ignore-existing {$stagingUploads} {$prodUploads}");
-})->desc('Sync uploads from staging → production (non-destructive, new files only)');
-
 task('deploy', [
     'deploy:prepare',
     'deploy:vendors',
@@ -78,13 +63,6 @@ task('deploy', [
     'theme:cache_clear',
     'php:reload',
 ]);
-
-// Automatically sync uploads after every production deploy.
-after('deploy', function () {
-    if (currentHost()->getAlias() === 'production') {
-        invoke('uploads:sync');
-    }
-});
 
 after('deploy:failed', 'deploy:unlock');
 
