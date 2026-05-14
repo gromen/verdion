@@ -366,32 +366,97 @@
    ========================================================================== */
 @layer base {
   .verdionWhyUs {
-    .verdionWhyUs__content {
-      display: flex;
-      gap: 1.5rem;
-    }
+    background-color: #ffffff;
+    padding-block: clamp(3rem, 6vw, 5rem);
 
-    .verdionWhyUs__content {
-      display: flex;
-      flex-direction: row;
-      gap: 0.5rem;
+    .verdionWhyUs__header {
+      width: 100%;
+      max-width: var(--container-content);
+      margin-inline: auto;
+      padding-inline: 1rem;
     }
 
     .verdionWhyUs__heading {
       text-align: center;
-      margin-block: 0 2rem;
+      font-size: clamp(1.125rem, 2vw, 1.5rem);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #1a1a1a;
+      margin-block: 0 clamp(2rem, 4vw, 3rem);
+
+      em {
+        color: var(--wp--preset--color--brand, #2e7d32);
+        font-style: normal;
+      }
+    }
+
+    .verdionWhyUs__content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+
+      @media (min-width: 640px) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0;
+      }
+
+      @media (min-width: 1024px) {
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
 
     .verdionWhyUs__card {
       display: flex;
-      gap: 1rem;
       flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.875rem;
+      padding-inline: clamp(1rem, 3vw, 2rem);
+      padding-block: 1rem;
+
+      @media (min-width: 640px) {
+        &:not(:first-child) {
+          border-left: 1px solid #e0e0e0;
+        }
+
+        &:nth-child(odd) {
+          border-left: none;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        &:nth-child(odd) {
+          border-left: 1px solid #e0e0e0;
+        }
+
+        &:first-child {
+          border-left: none;
+        }
+      }
     }
 
     .verdionWhyUs__cardIcon {
-      font-size: 1.5rem;
-      margin-inline: auto;
-      max-width: 100px;
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .verdionWhyUs__cardTitle {
+      font-size: clamp(0.75rem, 1vw, 0.875rem);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #1a1a1a;
+      margin: 0;
+    }
+
+    .verdionWhyUs__cardDescription {
+      font-size: clamp(0.875rem, 1vw, 0.9375rem);
+      color: #6b6b6b;
+      line-height: 1.65;
+      margin: 0;
     }
   }
 }
