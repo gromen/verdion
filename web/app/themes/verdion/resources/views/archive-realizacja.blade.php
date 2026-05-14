@@ -9,12 +9,20 @@
     $aktywna_kategoria = get_queried_object();
   @endphp
 
-  <div class="container-content">
+  <section class="realizacjeArchive__hero">
+    <div class="realizacjeArchive__heroInner container-content">
+      <p class="realizacjeArchive__heroLabel">REALIZACJE</p>
+      <h1 class="realizacjeArchive__heroTitle">Nasze realizacje</h1>
+      <p class="realizacjeArchive__heroDesc">{{ __('Zobacz efekty naszej pracy — projekty nawadniania ogrodów i terenów zielonych.', 'verdion') }}</p>
+    </div>
+    <div class="realizacjeArchive__heroDeco" aria-hidden="true">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,80 C360,0 1080,0 1440,80 L1440,80 L0,80 Z" fill="#ffffff"/>
+      </svg>
+    </div>
+  </section>
 
-    <header class="archiveHeader">
-      <h1 class="archiveHeader__title">{{ __('Realizacje', 'verdion') }}</h1>
-      <p class="archiveHeader__desc">{{ __('Zobacz efekty naszej pracy', 'verdion') }}</p>
-    </header>
+  <div class="container-content">
 
     @if (! empty($wszystkie_kategorie) && ! is_wp_error($wszystkie_kategorie))
       <nav class="archiveFilter" aria-label="{{ __('Filtruj realizacje', 'verdion') }}">
