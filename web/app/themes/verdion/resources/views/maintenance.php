@@ -344,7 +344,7 @@
         >
           <img
             class="maintenanceLogo__image w-44"
-            src="<?= content_url('/uploads/2026/05/logo.png') ?>"
+            src="data:image/png;base64,<?= base64_encode(file_get_contents(__DIR__ . '/../images/logo.png')) ?>"
             alt="Verdion logo"
             width="200"
           />
