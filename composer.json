@@ -45,6 +45,7 @@
     "roots/wp-config": "1.0.0",
     "vlucas/phpdotenv": "^5.5",
     "wp-plugin/safe-svg": "^2.4",
+    "wp-plugin/wp-mail-smtp": "^4.8",
     "wp-plugin/wpforms-lite": "^1.10",
     "wp-theme/twentytwentyfive": "^1.0"
   },
